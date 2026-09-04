@@ -47,6 +47,12 @@ function append(el, children) {
 /** Animate with WAAPI and resolve when done. Respects reduced motion. */
 export function animate(el, keyframes, options = {}) {
   if (!el) return Promise.resolve();
+  if (document.hidden) {
+    // A hidden tab never finishes a web animation: jump to the end state.
+    const last = Array.isArray(keyframes) ? keyframes[keyframes.length - 1] : keyframes;
+    for (const [k, v] of Object.entries(last)) { if (k !== "offset" && k !== "easing" && k !== "composite") el.style[k] = v; }
+    return Promise.resolve();
+  }
   const opts = { fill: "both", easing: "cubic-bezier(0.2, 0.7, 0.2, 1)", ...options };
   if (RM) { opts.duration = 1; opts.delay = 0; }
   const a = el.animate(keyframes, opts);

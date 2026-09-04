@@ -88,7 +88,7 @@ export function makeZoomable(img) {
   img.setAttribute("tabindex", "0");
   img.setAttribute("role", "button");
   img.setAttribute("aria-label", `${img.alt || "Image"}. View larger.`);
-  const go = (e) => { e.preventDefault(); if (img.complete) openLightbox(img); };
+  const go = (e) => { e.preventDefault(); openLightbox(img); };
   img.addEventListener("click", go);
   img.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") go(e); });
   return img;
