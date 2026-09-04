@@ -235,8 +235,6 @@
     display: block; text-align: center; margin-top: var(--s-3);
     font-size: var(--t-2); white-space: normal; max-width: 44vw;
   }
-  .stage > .bubble:first-child { grid-column: 1 / -1; }
-  .stage[data-layout="diamond"] > .bubble:last-child { grid-column: 1 / -1; }
   .bubble:hover .bubble__scale { transform: none; }
 }
 
