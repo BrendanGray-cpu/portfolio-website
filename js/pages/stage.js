@@ -12,9 +12,9 @@ export const STAGE_DEFAULTS = {
   sizeH: 0.30,        // bubble diameter as a fraction of stage height
   sizeW: 0.19,        // ...capped by this fraction of stage width
   ringPentagon: 0.39,  // ring radius (fraction of height) for Projects
-  ringDiamond: 0.33,   // ring radius for Fun Zone
+  ringDiamond: 0.35,   // ring radius for Fun Zone
   centerPentagon: 0.5, // vertical centre (fraction of height)
-  centerDiamond: 0.5,
+  centerDiamond: 0.46,
   leash: 20,           // max px a bubble drifts toward the pointer
   strength: 0.07,      // pull per px of distance
   ease: 0.08,          // follow smoothing per frame

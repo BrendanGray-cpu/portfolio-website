@@ -12,14 +12,14 @@ export function mountTuner(router) {
   const root = document.documentElement;
   const params = useDialKit("Bubbles", {
     shadow: {
-      offsetY: [28.5, 0, 80],        // how far the cast shadow drops
-      blur:    [18, 0, 120],
-      spread:  [-28.5, -60, 20],     // negative hides the shadow behind the circle
-      opacity: [0.16, 0, 0.6],
+      offsetY: [32.5, 0, 80],        // how far the cast shadow drops
+      blur:    [34, 0, 120],
+      spread:  [-25.5, -60, 20],     // negative hides the shadow behind the circle
+      opacity: [0.6, 0, 1],
     },
     ring: {                          // tight ambient shadow around the whole circle
-      blur:    [2, 0, 24],
-      opacity: [0.06, 0, 0.4],
+      blur:    [5, 0, 24],
+      opacity: [0.05, 0, 0.4],
     },
     spacing: {
       ringDiamond:    [STAGE_DEFAULTS.ringDiamond, 0.15, 0.5],   // Fun Zone ring radius (× stage height)

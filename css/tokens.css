@@ -54,12 +54,12 @@
   /* Glass bubble interaction */
   --bubble-hover: 1.12;
   --label-offset: 16px;
-  --bubble-shadow-y: 28.5px;
-  --bubble-shadow-blur: 18px;
-  --bubble-shadow-alpha: 0.16;
-  --bubble-shadow-spread: -28.5px;
-  --bubble-ring-blur: 2px;
-  --bubble-ring-alpha: 0.06;
+  --bubble-shadow-y: 32.5px;
+  --bubble-shadow-blur: 34px;
+  --bubble-shadow-alpha: 0.6;
+  --bubble-shadow-spread: -25.5px;
+  --bubble-ring-blur: 5px;
+  --bubble-ring-alpha: 0.05;
   --bubble-shadow:
     0 1px var(--bubble-ring-blur) rgba(0, 0, 0, var(--bubble-ring-alpha)),
     0 var(--bubble-shadow-y) var(--bubble-shadow-blur) var(--bubble-shadow-spread) rgba(0, 0, 0, var(--bubble-shadow-alpha));
