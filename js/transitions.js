@@ -30,8 +30,8 @@ function heroOnScreen(page) {
  * Build a morph element that starts at `rect` showing `item`'s image.
  * `glassImg` is the decoded thumb used for the lens texture.
  */
-function makeMorph(layer, rect, item, glassImg, radius) {
-  const m = h("div.morph", { style: {
+function makeMorph(layer, rect, item, glassImg, radius, section) {
+  const m = h("div.morph", { class: section === "fun" ? "morph is-fun" : "morph", style: {
     left: rect.left + "px", top: rect.top + "px", width: rect.width + "px", height: rect.height + "px", borderRadius: radius,
   } });
   m.append(h("img", { src: item.image, alt: "", style: { objectPosition: `${item.focus[0] * 100}% ${item.focus[1] * 100}%` } }));
@@ -82,7 +82,7 @@ async function morphIn(main, layer, from, to) {
   const fading = from.leave({ mode: "morph", keepSlug: to.slug });
   await full;
 
-  const morph = makeMorph(layer, rectA, item, thumb, "50%");
+  const morph = makeMorph(layer, rectA, item, thumb, "50%", to.section);
   if (morph.g) morph.g.render(thumb, { strength: 1, shape: 0, aspect: 1, focus: item.focus });
   b.glassEl.style.visibility = "hidden";
   from.hideTitle?.();
@@ -113,7 +113,7 @@ async function morphOut(main, layer, from, to) {
   const thumb = await preload(item.image, 400);
   await from.leave({ mode: "morph" });
 
-  const morph = makeMorph(layer, rectA, item, thumb, RADIUS + "px");
+  const morph = makeMorph(layer, rectA, item, thumb, RADIUS + "px", from.section);
   if (morph.canvas) morph.canvas.style.opacity = "0";
   from.heroEl.style.visibility = "hidden";
   from.destroy(); from.el.remove();

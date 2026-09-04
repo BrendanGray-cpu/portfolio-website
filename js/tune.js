@@ -10,16 +10,22 @@ import { STAGE_DEFAULTS, setStage } from "./pages/stage.js";
 
 export function mountTuner(router) {
   const root = document.documentElement;
-  const params = useDialKit("Bubbles", {
-    shadow: {
+  const params = useDialKit("Bubble Shadows", {
+    projectsShadow: {
       offsetY: [32.5, 0, 80],        // how far the cast shadow drops
-      blur:    [34, 0, 120],
+      blur:    [26, 0, 120],
       spread:  [-25.5, -60, 20],     // negative hides the shadow behind the circle
-      opacity: [0.6, 0, 1],
+      opacity: [0.06, 0, 1],
+      ringBlur:    [5, 0, 24],       // tight ambient shadow around the circle
+      ringOpacity: [0.05, 0, 0.4],
     },
-    ring: {                          // tight ambient shadow around the whole circle
-      blur:    [5, 0, 24],
-      opacity: [0.05, 0, 0.4],
+    funShadow: {
+      offsetY: [32.5, 0, 80],
+      blur:    [34, 0, 120],
+      spread:  [-25.5, -60, 20],
+      opacity: [0.6, 0, 1],
+      ringBlur:    [5, 0, 24],
+      ringOpacity: [0.05, 0, 0.4],
     },
     spacing: {
       ringDiamond:    [STAGE_DEFAULTS.ringDiamond, 0.15, 0.5],   // Fun Zone ring radius (× stage height)
@@ -42,14 +48,15 @@ export function mountTuner(router) {
     },
   });
 
-  const tokens = (p) => ({
-    "--bubble-shadow-y": p.shadow.offsetY + "px",
-    "--bubble-shadow-blur": p.shadow.blur + "px",
-    "--bubble-shadow-spread": p.shadow.spread + "px",
-    "--bubble-shadow-alpha": p.shadow.opacity,
-    "--bubble-ring-blur": p.ring.blur + "px",
-    "--bubble-ring-alpha": p.ring.opacity,
+  const shadowTokens = (prefix, s) => ({
+    [`--${prefix}-shadow-y`]: s.offsetY + "px",
+    [`--${prefix}-shadow-blur`]: s.blur + "px",
+    [`--${prefix}-shadow-spread`]: s.spread + "px",
+    [`--${prefix}-shadow-alpha`]: s.opacity,
+    [`--${prefix}-ring-blur`]: s.ringBlur + "px",
+    [`--${prefix}-ring-alpha`]: s.ringOpacity,
   });
+  const tokens = (p) => ({ ...shadowTokens("bubble", p.projectsShadow), ...shadowTokens("fun", p.funShadow) });
 
   let pending = null;
   function apply(p, group) {

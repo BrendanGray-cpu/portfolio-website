@@ -49,7 +49,7 @@ export function createDetail(sectionKey, slug) {
     h("a.textlink.pager__next", { href: `${section.base}/${next.slug}`, dataset: { link: "", dir: "1" }, rel: "next" }, next.name, icon("chevRight")),
   );
 
-  const el = h("article.detail.page", { dataset: { kind: "detail" } },
+  const el = h("article.detail.page", { dataset: { kind: "detail", section: sectionKey } },
     h("div.detail__head", h("div.detail__aside", back, title, meta, cta), hero),
     h("div.detail__body", lede, sections),
     pager,

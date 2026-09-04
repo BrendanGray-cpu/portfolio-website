@@ -142,6 +142,7 @@
   box-shadow: var(--bubble-shadow);
   transform: translateZ(0);
 }
+.stage[data-layout="diamond"] .bubble__glass { box-shadow: var(--fun-shadow); }
 .bubble__glass > canvas, .bubble__glass > img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -245,6 +246,7 @@
   background: #f2f2f2;
   box-shadow: var(--bubble-shadow);
 }
+.morph.is-fun { box-shadow: var(--fun-shadow); }
 .morph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .morph > canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 

@@ -31,6 +31,7 @@
   box-shadow: var(--bubble-shadow);
   align-self: start;
 }
+.detail[data-section="fun"] .detail__hero { box-shadow: var(--fun-shadow); }
 .detail__hero img { width: 100%; height: 100%; object-fit: cover; }
 /* light gray inner border, drawn above the image */
 .detail__hero::after {
