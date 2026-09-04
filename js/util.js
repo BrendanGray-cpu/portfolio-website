@@ -8,7 +8,8 @@ export const MOBILE = window.matchMedia("(max-width: 720px)");
 export const COARSE = window.matchMedia("(hover: none)").matches;
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-export const raf = () => new Promise((r) => requestAnimationFrame(r));
+/** Next frame, or 40ms if the tab is hidden (rAF never fires there). */
+export const raf = () => new Promise((r) => { const t = setTimeout(r, 40); requestAnimationFrame(() => { clearTimeout(t); r(); }); });
 export const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 export const lerp = (a, b, t) => a + (b - a) * t;
 

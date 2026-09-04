@@ -94,21 +94,21 @@ void main() {
   gl_FragColor = vec4(col * alpha, alpha);
 }`;
 
-/* ---------- tunable look (edit here or via /?tune) ---------- */
+/* ---------- glass look ---------- */
 export const GLASS_DEFAULTS = {
-  bend: 0.5,        // refraction amount at the rim
-  bendPow: 5,       // how tightly the refraction hugs the rim
+  bend: 0.06,       // refraction amount at the rim
+  bendPow: 1,       // how tightly the refraction hugs the rim
   chroma: 0.03,     // chromatic split
-  zoom: 1,          // 1 = cover crop
-  rimStart: 0.84,   // dark rim begins at this radius
-  rimDark: 0.18,    // rim darkness (top)
-  rimBottom: 0.72,  // extra darkness at the bottom
-  edgeStart: 0.965, // thin edge line begins
-  edgeDark: 0.15,
-  edgeBottom: 0.35,
-  spec: 0.22,       // specular intensity
-  specInner: 0.78,  // inner radius of the specular arc
-  lightAngle: 123,  // degrees; 90 = top, 180 = left
+  zoom: 0.98,       // 1 = cover crop
+  rimStart: 0.98,   // dark rim begins at this radius
+  rimDark: 0.01,    // rim darkness (top)
+  rimBottom: 0,     // extra darkness at the bottom
+  edgeStart: 0.998, // thin edge line begins
+  edgeDark: 0.18,
+  edgeBottom: 0,
+  spec: 0.03,       // specular intensity
+  specInner: 0.69,  // inner radius of the specular arc
+  lightAngle: 120,  // degrees; 90 = top, 180 = left
   body: 0.02,       // soft body light
 };
 /** Live params. Mutate via setGlass(); every later draw uses them. */

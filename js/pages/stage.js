@@ -7,17 +7,17 @@ import { SECTIONS } from "../data.js";
 import { LeashedField } from "../gravity.js";
 import { glass, bufferSize } from "../glass.js";
 
-/* ---------- tunable layout + gravity (edit here or via /?tune) ---------- */
+/* ---------- layout + gravity ---------- */
 export const STAGE_DEFAULTS = {
   sizeH: 0.30,        // bubble diameter as a fraction of stage height
   sizeW: 0.19,        // ...capped by this fraction of stage width
-  ringPentagon: 0.345, // ring radius (fraction of height) for Projects
-  ringDiamond: 0.31,   // ring radius for Fun Zone
+  ringPentagon: 0.39,  // ring radius (fraction of height) for Projects
+  ringDiamond: 0.33,   // ring radius for Fun Zone
   centerPentagon: 0.5, // vertical centre (fraction of height)
-  centerDiamond: 0.48,
-  leash: 40,           // max px a bubble drifts toward the pointer
-  strength: 0.16,      // pull per px of distance
-  ease: 0.11,          // follow smoothing per frame
+  centerDiamond: 0.5,
+  leash: 20,           // max px a bubble drifts toward the pointer
+  strength: 0.07,      // pull per px of distance
+  ease: 0.08,          // follow smoothing per frame
 };
 export const STAGE = { ...STAGE_DEFAULTS };
 export function setStage(partial) { Object.assign(STAGE, partial); }
@@ -116,8 +116,6 @@ export function createStage(sectionKey) {
     title: sectionKey === "projects" ? "Brendan Gray — Product Designer" : "Fun Zone — Brendan Gray",
     el, focusEl: heading, bubbles,
     bubbleFor: (slug) => bubbles.find((b) => b.item.slug === slug) || null,
-    /** Re-apply STAGE + GLASS params live (used by the tuner). */
-    retune() { field.ease = STAGE.ease; field.defaultLeash = STAGE.leash; layout(); return renderGlass(); },
     imageFor: (slug) => bubbles.find((b) => b.item.slug === slug)?.img || null,
     field,
 
