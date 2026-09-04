@@ -41,7 +41,6 @@ export function createDetail(sectionKey, slug) {
   });
   const hero = h("figure.detail__hero", { style: { aspectRatio: String(item.aspect) } }, heroImg);
 
-  const lede = h("p.detail__lede.reveal", item.context);
   const sections = item.sections.map((s) => h("section.detail__section.reveal", h("h2", s.heading), renderItems(s.items)));
 
   const pager = h("nav.pager.reveal", { "aria-label": `${section.label} navigation` },
@@ -51,11 +50,11 @@ export function createDetail(sectionKey, slug) {
 
   const el = h("article.detail.page", { dataset: { kind: "detail", section: sectionKey } },
     h("div.detail__head", h("div.detail__aside", back, title, meta, cta), hero),
-    h("div.detail__body", lede, sections),
+    h("div.detail__body", sections),
     pager,
   );
 
-  const items = [back, title, meta, cta, lede, ...sections, pager].filter(Boolean);
+  const items = [back, title, meta, cta, ...sections, pager].filter(Boolean);
 
   const page = {
     kind: "detail", section: sectionKey, tab: sectionKey, slug, index, item, prev, next,

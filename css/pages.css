@@ -43,7 +43,6 @@
 }
 
 .detail__body { margin-top: var(--s-8); }
-.detail__lede { font-size: var(--t-2); color: var(--gray-text); font-weight: 500; line-height: 1.35; margin-bottom: var(--s-7); }
 .detail__section + .detail__section { margin-top: var(--s-6); }
 .detail__section h2 { font-size: var(--t-1); font-weight: 700; margin-bottom: var(--s-1); }
 .detail__section h3 { font-size: var(--t-1); font-weight: 700; margin-top: var(--s-5); margin-bottom: var(--s-1); }
