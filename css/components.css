@@ -22,7 +22,7 @@
   white-space: nowrap;
 }
 .wordmark__first { font-weight: 700; color: var(--black); }
-.wordmark__last { font-weight: 500; color: var(--gray); }
+.wordmark__last { font-weight: 700; color: var(--gray); }
 
 .tabs {
   position: relative;
