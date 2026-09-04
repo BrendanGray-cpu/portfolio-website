@@ -34,6 +34,8 @@ js/glass.js           WebGL lens shader for the glass bubbles (CSS fallback)
 js/gravity.js         leashed-gravity pointer field (from Wellspring Group)
 js/intro.js           "Hey, I'm Brendan Gray" opening beat (once per session)
 js/pages/*.js         projects / fun zone stage, detail, about
+js/tuner.js           vanilla DialKit (dev only, loaded with ?tune)
+js/tune.js            the glass-bubble DialKit config
 assets/               fonts, optimised images, resume PDF
 ```
 
@@ -42,3 +44,4 @@ assets/               fonts, optimised images, resume PDF
 - `/?intro` — replay the intro beat
 - `/?rm` — force reduced-motion behaviour
 - `/?nogl` — force the CSS glass fallback
+- `/?tune` — open the DialKit panel for the glass bubbles (lens, rim, light, layout, gravity, hover spring, shadow). "Copy config" puts a JSON block on the clipboard; paste its values over `GLASS_DEFAULTS` in `js/glass.js`, `STAGE_DEFAULTS` in `js/pages/stage.js`, and the `--bubble-*` / `--spring-bouncy` tokens in `css/tokens.css` to bake a look in. Values persist in localStorage until Reset.

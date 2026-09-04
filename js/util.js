@@ -1,7 +1,7 @@
 /* ============================================================
    util.js — tiny DOM + motion helpers shared by every module
    ============================================================ */
-const DEBUG = new URLSearchParams(location.search);
+export const DEBUG = new URLSearchParams(location.search);
 export const RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches || DEBUG.has("rm");
 export const NO_GL = DEBUG.has("nogl");
 export const MOBILE = window.matchMedia("(max-width: 720px)");

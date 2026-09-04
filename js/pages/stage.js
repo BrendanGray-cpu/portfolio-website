@@ -7,6 +7,21 @@ import { SECTIONS } from "../data.js";
 import { LeashedField } from "../gravity.js";
 import { glass, bufferSize } from "../glass.js";
 
+/* ---------- tunable layout + gravity (edit here or via /?tune) ---------- */
+export const STAGE_DEFAULTS = {
+  sizeH: 0.30,        // bubble diameter as a fraction of stage height
+  sizeW: 0.19,        // ...capped by this fraction of stage width
+  ringPentagon: 0.345, // ring radius (fraction of height) for Projects
+  ringDiamond: 0.31,   // ring radius for Fun Zone
+  centerPentagon: 0.5, // vertical centre (fraction of height)
+  centerDiamond: 0.48,
+  leash: 40,           // max px a bubble drifts toward the pointer
+  strength: 0.16,      // pull per px of distance
+  ease: 0.11,          // follow smoothing per frame
+};
+export const STAGE = { ...STAGE_DEFAULTS };
+export function setStage(partial) { Object.assign(STAGE, partial); }
+
 const spring = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || "ease-out";
 
 export function createStage(sectionKey) {
@@ -31,7 +46,7 @@ export function createStage(sectionKey) {
     return { item, el: bubble, glassEl, img: null, canvas: null };
   });
 
-  const field = new LeashedField(el, { leash: 40, strength: 0.16, ease: 0.11 });
+  const field = new LeashedField(el, { leash: STAGE.leash, strength: STAGE.strength, ease: STAGE.ease });
   let D = 224;
   let destroyed = false;
 
@@ -39,10 +54,10 @@ export function createStage(sectionKey) {
   function positions(W, H) {
     const n = bubbles.length;
     const pent = layoutKind === "pentagon";
-    D = clamp(Math.min(H * 0.30, W * 0.19), 140, 260);
-    const R = pent ? Math.min(H * 0.345, W * 0.25) : Math.min(H * 0.31, W * 0.23);
+    D = clamp(Math.min(H * STAGE.sizeH, W * STAGE.sizeW), 140, 320);
+    const R = pent ? Math.min(H * STAGE.ringPentagon, W * 0.25) : Math.min(H * STAGE.ringDiamond, W * 0.23);
     const cx = W / 2;
-    const cy = pent ? H * 0.5 : H * 0.48;
+    const cy = H * (pent ? STAGE.centerPentagon : STAGE.centerDiamond);
     return bubbles.map((_, i) => {
       let deg;
       if (pent) deg = -90 + i * (360 / n);
@@ -63,8 +78,8 @@ export function createStage(sectionKey) {
     const pts = positions(W, H);
     el.style.setProperty("--d", D + "px");
     bubbles.forEach((b, i) => {
-      if (!b.field) b.field = field.add(b.el, { homeX: pts[i].x, homeY: pts[i].y, strength: 0.14 + (i % 3) * 0.02 });
-      else field.setHome(b.field, pts[i].x, pts[i].y);
+      if (!b.field) b.field = field.add(b.el, { homeX: pts[i].x, homeY: pts[i].y, strength: STAGE.strength * (0.9 + (i % 3) * 0.12) });
+      else { field.setHome(b.field, pts[i].x, pts[i].y); b.field.strength = STAGE.strength * (0.9 + (i % 3) * 0.12); b.field.leash = STAGE.leash; }
     });
   }
 
@@ -101,6 +116,8 @@ export function createStage(sectionKey) {
     title: sectionKey === "projects" ? "Brendan Gray — Product Designer" : "Fun Zone — Brendan Gray",
     el, focusEl: heading, bubbles,
     bubbleFor: (slug) => bubbles.find((b) => b.item.slug === slug) || null,
+    /** Re-apply STAGE + GLASS params live (used by the tuner). */
+    retune() { field.ease = STAGE.ease; field.defaultLeash = STAGE.leash; layout(); return renderGlass(); },
     imageFor: (slug) => bubbles.find((b) => b.item.slug === slug)?.img || null,
     field,
 

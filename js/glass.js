@@ -27,6 +27,20 @@ uniform float u_shape;       // 0 circle → 1 rounded rect
 uniform float u_radius;      // corner radius / half height
 uniform float u_zoom;        // 1 = cover
 uniform float u_aa;          // anti-alias width in sdf units
+// tunable look (see GLASS_DEFAULTS)
+uniform float u_bend;        // refraction amount at the rim
+uniform float u_bendPow;     // how tightly refraction hugs the rim
+uniform float u_chroma;      // chromatic split of the refraction
+uniform float u_rimStart;    // where the dark rim begins (0..1 radius)
+uniform float u_rimDark;     // rim darkness at the top
+uniform float u_rimBottom;   // extra rim darkness at the bottom
+uniform float u_edgeStart;   // where the thin edge line begins
+uniform float u_edgeDark;    // edge line darkness
+uniform float u_edgeBottom;  // extra edge darkness at the bottom
+uniform float u_spec;        // specular intensity
+uniform float u_specInner;   // inner radius of the specular arc
+uniform vec2  u_lightDir;    // light direction (unit vector)
+uniform float u_body;        // soft body light
 
 float sdRRect(vec2 p, vec2 b, float r) {
   vec2 q = abs(p) - b + r;
@@ -52,33 +66,54 @@ void main() {
 
   // Convex-lens refraction: flat in the middle, content compresses
   // sharply in the outer ring like a thick glass edge.
-  float bend = u_strength * 0.5 * pow(nr, 5.0);
+  float bend = u_strength * u_bend * pow(nr, u_bendPow);
   vec2 dir = p * 0.5;
-  vec2 uvR = cover(v_uv - dir * bend * 1.03);
+  vec2 uvR = cover(v_uv - dir * bend * (1.0 + u_chroma));
   vec2 uvG = cover(v_uv - dir * bend);
-  vec2 uvB = cover(v_uv - dir * bend * 0.97);
+  vec2 uvB = cover(v_uv - dir * bend * (1.0 - u_chroma));
   vec3 col = vec3(texture2D(u_tex, uvR).r, texture2D(u_tex, uvG).g, texture2D(u_tex, uvB).b);
 
   // Glass thickness: dark rim, heavier at the bottom.
-  float rim = smoothstep(0.84, 1.0, nr);
+  float rim = smoothstep(u_rimStart, 1.0, nr);
   float bottom = clamp(0.5 - p.y * 0.5, 0.0, 1.0);
-  float dark = pow(rim, 1.6) * (0.18 + 0.72 * bottom * bottom) * u_strength;
+  float dark = pow(rim, 1.6) * (u_rimDark + u_rimBottom * bottom * bottom) * u_strength;
   // a thin, darker glass edge right at the boundary
-  dark += smoothstep(0.965, 1.0, nr) * (0.15 + 0.35 * bottom) * u_strength;
+  dark += smoothstep(u_edgeStart, 1.0, nr) * (u_edgeDark + u_edgeBottom * bottom) * u_strength;
   col *= 1.0 - clamp(dark, 0.0, 0.92);
 
-  // Specular arc from the top-left light.
-  vec2 ldir = normalize(vec2(-0.55, 0.85));
-  float ang = dot(normalize(p + vec2(1e-4)), ldir);
-  float spec = smoothstep(0.3, 1.0, ang) * smoothstep(0.78, 0.93, nr) * (1.0 - smoothstep(0.95, 1.0, nr));
-  col += spec * 0.22 * u_strength;
+  // Specular arc from the light direction.
+  float ang = dot(normalize(p + vec2(1e-4)), u_lightDir);
+  float specOuter = u_specInner + (0.93 - 0.78);
+  float spec = smoothstep(0.3, 1.0, ang) * smoothstep(u_specInner, specOuter, nr) * (1.0 - smoothstep(0.95, 1.0, nr));
+  col += spec * u_spec * u_strength;
 
   // Soft body light: slight lift in the centre and toward the top.
-  col += (0.02 * (1.0 - nr) + 0.02 * (p.y * 0.5 + 0.5)) * u_strength;
+  col += (u_body * (1.0 - nr) + u_body * (p.y * 0.5 + 0.5)) * u_strength;
 
   float alpha = 1.0 - smoothstep(-u_aa, u_aa, d);
   gl_FragColor = vec4(col * alpha, alpha);
 }`;
+
+/* ---------- tunable look (edit here or via /?tune) ---------- */
+export const GLASS_DEFAULTS = {
+  bend: 0.5,        // refraction amount at the rim
+  bendPow: 5,       // how tightly the refraction hugs the rim
+  chroma: 0.03,     // chromatic split
+  zoom: 1,          // 1 = cover crop
+  rimStart: 0.84,   // dark rim begins at this radius
+  rimDark: 0.18,    // rim darkness (top)
+  rimBottom: 0.72,  // extra darkness at the bottom
+  edgeStart: 0.965, // thin edge line begins
+  edgeDark: 0.15,
+  edgeBottom: 0.35,
+  spec: 0.22,       // specular intensity
+  specInner: 0.78,  // inner radius of the specular arc
+  lightAngle: 123,  // degrees; 90 = top, 180 = left
+  body: 0.02,       // soft body light
+};
+/** Live params. Mutate via setGlass(); every later draw uses them. */
+export const GLASS = { ...GLASS_DEFAULTS };
+export function setGlass(partial) { Object.assign(GLASS, partial); }
 
 class GlassGL {
   /** @param {HTMLCanvasElement} [canvas] render directly into this canvas (no copy) */
@@ -107,7 +142,9 @@ class GlassGL {
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     this.u = {};
-    for (const n of ["u_tex", "u_texAspect", "u_aspect", "u_focus", "u_strength", "u_shape", "u_radius", "u_zoom", "u_aa"]) {
+    for (const n of ["u_tex", "u_texAspect", "u_aspect", "u_focus", "u_strength", "u_shape", "u_radius", "u_zoom", "u_aa",
+      "u_bend", "u_bendPow", "u_chroma", "u_rimStart", "u_rimDark", "u_rimBottom", "u_edgeStart", "u_edgeDark", "u_edgeBottom",
+      "u_spec", "u_specInner", "u_lightDir", "u_body"]) {
       this.u[n] = gl.getUniformLocation(prog, n);
     }
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
@@ -181,7 +218,22 @@ class GlassGL {
     gl.uniform1f(this.u.u_strength, o.strength ?? 1);
     gl.uniform1f(this.u.u_shape, o.shape ?? 0);
     gl.uniform1f(this.u.u_radius, o.radius ?? 0);
-    gl.uniform1f(this.u.u_zoom, o.zoom ?? 1);
+    const P = GLASS;
+    gl.uniform1f(this.u.u_zoom, o.zoom ?? P.zoom);
+    gl.uniform1f(this.u.u_bend, P.bend);
+    gl.uniform1f(this.u.u_bendPow, P.bendPow);
+    gl.uniform1f(this.u.u_chroma, P.chroma);
+    gl.uniform1f(this.u.u_rimStart, P.rimStart);
+    gl.uniform1f(this.u.u_rimDark, P.rimDark);
+    gl.uniform1f(this.u.u_rimBottom, P.rimBottom);
+    gl.uniform1f(this.u.u_edgeStart, P.edgeStart);
+    gl.uniform1f(this.u.u_edgeDark, P.edgeDark);
+    gl.uniform1f(this.u.u_edgeBottom, P.edgeBottom);
+    gl.uniform1f(this.u.u_spec, P.spec);
+    gl.uniform1f(this.u.u_specInner, P.specInner);
+    const la = (P.lightAngle * Math.PI) / 180;
+    gl.uniform2f(this.u.u_lightDir, Math.cos(la), Math.sin(la));
+    gl.uniform1f(this.u.u_body, P.body);
     gl.uniform1f(this.u.u_aa, o.aa ?? 2.5 / Math.min(w, hgt));
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);

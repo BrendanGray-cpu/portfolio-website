@@ -4,7 +4,7 @@
 import { Router } from "./router.js";
 import { initNav } from "./nav.js";
 import { shouldPlayIntro, playIntro } from "./intro.js";
-import { sleep } from "./util.js";
+import { sleep, DEBUG } from "./util.js";
 
 async function fontsReady() {
   if (!document.fonts?.load) return;
@@ -35,6 +35,7 @@ async function boot() {
     nav.show();
     await router.start();
   }
+  if (DEBUG.has("tune")) import("./tune.js").then((m) => m.mountTuner(router));
 }
 
 boot();
