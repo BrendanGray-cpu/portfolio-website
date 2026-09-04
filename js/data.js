@@ -272,8 +272,8 @@ export const FUN = [
     cta: "Visit the Site",
     image: `${IMG}/previews/wellspring-group.webp`,
     thumb: `${IMG}/previews/wellspring-group-sm.webp`,
-    aspect: 2684 / 1564,
-    alt: "Wellspring Group’s landing page: teal bubbles gathered into a bottle silhouette beside the line “good soda starts with good ingredients”",
+    aspect: 2812 / 1512,
+    alt: "Wellspring Group’s landing page: teal bubbles gathered into a bottle silhouette above the line “Great soda starts with good soil”",
     focus: [0.52, 0.5],
     zoom: 1,
     sections: [
