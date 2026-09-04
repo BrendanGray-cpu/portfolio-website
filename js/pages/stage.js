@@ -5,7 +5,7 @@
 import { h, RM, MOBILE, COARSE, clamp, animate, preload, raf, sleep } from "../util.js";
 import { SECTIONS } from "../data.js";
 import { LeashedField } from "../gravity.js";
-import { glass, bufferSize } from "../glass.js";
+import { glass, bufferSize, GLASS } from "../glass.js";
 
 /* ---------- layout + gravity ---------- */
 export const STAGE_DEFAULTS = {
@@ -115,15 +115,18 @@ export function createStage(sectionKey) {
       if (!g) {
         if (!b.glassEl.querySelector("img")) {
           b.glassEl.classList.add("is-css");
-          b.glassEl.append(h("img", { src: b.item.thumb, alt: "", style: { objectPosition: `${b.item.focus[0] * 100}% ${b.item.focus[1] * 100}%` } }));
+          b.glassEl.append(h("img", { src: b.item.thumb, alt: "" }));
         }
+        const fb = b.glassEl.querySelector("img");
+        fb.style.objectPosition = `${b.item.focus[0] * 100}% ${b.item.focus[1] * 100}%`;
+        fb.style.transform = `scale(${b.item.zoom ?? 1})`;
         continue;
       }
       if (!b.canvas) { b.canvas = h("canvas", { "aria-hidden": "true" }); b.glassEl.append(b.canvas); }
       const px = MOBILE.matches ? b.glassEl.clientWidth || 180 : D;
       const size = bufferSize(px * 1.12);
       if (b.canvas.width !== size) { b.canvas.width = size; b.canvas.height = size; }
-      g.draw(b.canvas, b.img, { strength: 1, shape: 0, focus: b.item.focus, aspect: 1 });
+      g.draw(b.canvas, b.img, { strength: 1, shape: 0, focus: b.item.focus, aspect: 1, zoom: GLASS.zoom * (b.item.zoom ?? 1) });
       await raf();                       // spread GPU uploads across frames
     }
   }

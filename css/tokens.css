@@ -65,10 +65,10 @@
     0 1px var(--bubble-ring-blur) rgba(0, 0, 0, var(--bubble-ring-alpha)),
     0 var(--bubble-shadow-y) var(--bubble-shadow-blur) var(--bubble-shadow-spread) rgba(0, 0, 0, var(--bubble-shadow-alpha));
   /* Fun Zone bubbles (and their hero / morph) */
-  --fun-shadow-y: 32.5px;
-  --fun-shadow-blur: 34px;
-  --fun-shadow-spread: -25.5px;
-  --fun-shadow-alpha: 0.6;
+  --fun-shadow-y: 12px;
+  --fun-shadow-blur: 13px;
+  --fun-shadow-spread: -9px;
+  --fun-shadow-alpha: 0.49;
   --fun-ring-blur: 5px;
   --fun-ring-alpha: 0.05;
   --fun-shadow:

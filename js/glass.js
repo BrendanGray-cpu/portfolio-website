@@ -52,7 +52,7 @@ vec2 cover(vec2 uv) {
   if (u_texAspect > u_aspect) s.x = u_aspect / u_texAspect; else s.y = u_texAspect / u_aspect;
   s /= u_zoom;
   vec2 f = vec2(u_focus.x, 1.0 - u_focus.y);
-  vec2 c = clamp(f, s * 0.5, 1.0 - s * 0.5);
+  vec2 c = clamp(f, min(s * 0.5, vec2(0.5)), max(1.0 - s * 0.5, vec2(0.5)));
   return c + (uv - 0.5) * s;
 }
 

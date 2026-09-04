@@ -8,7 +8,7 @@
    - everything else: quick fade out, staggered reveal in.
    ============================================================ */
 import { h, RM, MOBILE, animate, preload, clamp, raf } from "./util.js";
-import { glass, directGlass } from "./glass.js";
+import { glass, directGlass, GLASS } from "./glass.js";
 
 const MORPH_EASE = "cubic-bezier(0.7, 0, 0.2, 1)";
 const MORPH_MS = 580;
@@ -63,6 +63,7 @@ function runMorph({ m, canvas, g }, rectA, rectB, item, glassImg, direction) {
       const flat = toCircle ? 1 - p : p;           // 0 = glass circle, 1 = flat rect
       g.render(glassImg, {
         strength: 1 - flat, shape: flat, aspect: w / hh, radius: RADIUS / (hh / 2), focus: item.focus,
+        zoom: GLASS.zoom * (item.zoom ?? 1) * (1 - flat) + flat,
       });
       canvas.style.opacity = String(toCircle ? smooth(0.05, 0.45, 1 - flat) : 1 - smooth(0.55, 0.95, flat));
       if (t < 1) requestAnimationFrame(loop);
@@ -83,7 +84,7 @@ async function morphIn(main, layer, from, to) {
   await full;
 
   const morph = makeMorph(layer, rectA, item, thumb, "50%", to.section);
-  if (morph.g) morph.g.render(thumb, { strength: 1, shape: 0, aspect: 1, focus: item.focus });
+  if (morph.g) morph.g.render(thumb, { strength: 1, shape: 0, aspect: 1, focus: item.focus, zoom: GLASS.zoom * (item.zoom ?? 1) });
   b.glassEl.style.visibility = "hidden";
   from.hideTitle?.();
 
