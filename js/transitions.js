@@ -85,9 +85,13 @@ async function morphIn(main, layer, from, to) {
   const morph = makeMorph(layer, rectA, item, thumb, "50%");
   if (morph.g) morph.g.render(thumb, { strength: 1, shape: 0, aspect: 1, focus: item.focus });
   b.glassEl.style.visibility = "hidden";
-  b.el.querySelector(".bubble__label").style.visibility = "hidden";
+  from.hideTitle?.();
 
-  // Stage the detail page hidden so the hero slot can be measured.
+  // Let the other bubbles fade, then remove the stage BEFORE the detail page
+  // is measured, otherwise the hero slot sits one viewport too low.
+  await Promise.race([fading, new Promise((r) => setTimeout(r, 200))]);
+  from.destroy(); from.el.remove();
+
   to.el.classList.add("is-staging");
   to.heroEl.style.visibility = "hidden";
   main.append(to.el);
@@ -96,8 +100,6 @@ async function morphIn(main, layer, from, to) {
   await raf();
   const rectB = to.heroEl.getBoundingClientRect();
 
-  await Promise.race([fading, new Promise((r) => setTimeout(r, 160))]);
-  from.destroy(); from.el.remove();
   await runMorph(morph, rectA, rectB, item, thumb, 1);
   to.heroEl.style.visibility = "";
   morph.m.remove();

@@ -29,7 +29,24 @@ export function createStage(sectionKey) {
   const layoutKind = sectionKey === "projects" ? "pentagon" : "diamond";
   const el = h("section.stage.page", { dataset: { layout: layoutKind, kind: "stage" }, "aria-label": section.label });
   const heading = h("h1.sr-only", { tabindex: -1 }, section.label);
-  el.append(heading);
+  const title = h("p.stage__title", { "aria-hidden": "true" });
+  el.append(heading, title);
+
+  /* Centre title: shows the hovered/focused project's name in the middle
+     of the pentagon / diamond (desktop only; mobile keeps in-flow labels). */
+  let shown = null;
+  function showTitle(name) {
+    if (MOBILE.matches) return;
+    if (shown === name) return;
+    if (shown) {                       // quick swap between bubbles
+      title.classList.remove("is-visible");
+      void title.offsetWidth;
+    }
+    shown = name;
+    title.textContent = name;
+    title.classList.add("is-visible");
+  }
+  function hideTitle() { shown = null; title.classList.remove("is-visible"); }
 
   const bubbles = section.items.map((item, i) => {
     const glassEl = h("div.bubble__glass");
@@ -42,6 +59,10 @@ export function createStage(sectionKey) {
         h("div.bubble__scale", glassEl),
         h("span.bubble__label", { "aria-hidden": "true" }, item.name)),
     );
+    bubble.addEventListener("pointerenter", () => showTitle(item.name));
+    bubble.addEventListener("pointerleave", hideTitle);
+    bubble.addEventListener("focus", () => showTitle(item.name));
+    bubble.addEventListener("blur", hideTitle);
     el.append(bubble);
     return { item, el: bubble, glassEl, img: null, canvas: null };
   });
@@ -58,6 +79,8 @@ export function createStage(sectionKey) {
     const R = pent ? Math.min(H * STAGE.ringPentagon, W * 0.25) : Math.min(H * STAGE.ringDiamond, W * 0.23);
     const cx = W / 2;
     const cy = H * (pent ? STAGE.centerPentagon : STAGE.centerDiamond);
+    el.style.setProperty("--cy", cy + "px");
+    el.style.setProperty("--inner", Math.max(200, 2 * (R - D / 2) - 32) + "px");
     return bubbles.map((_, i) => {
       let deg;
       if (pent) deg = -90 + i * (360 / n);
@@ -116,6 +139,7 @@ export function createStage(sectionKey) {
     title: sectionKey === "projects" ? "Brendan Gray — Product Designer" : "Fun Zone — Brendan Gray",
     el, focusEl: heading, bubbles,
     bubbleFor: (slug) => bubbles.find((b) => b.item.slug === slug) || null,
+    hideTitle,
     imageFor: (slug) => bubbles.find((b) => b.item.slug === slug)?.img || null,
     field,
 
@@ -154,6 +178,7 @@ export function createStage(sectionKey) {
     /** mode: 'fade' | 'morph' (keeps one bubble visible) */
     async leave({ mode = "fade", keepSlug = null } = {}) {
       field.stop();
+      hideTitle();
       const others = bubbles.filter((b) => b.item.slug !== keepSlug);
       const scales = others.map((b) => b.el.querySelector(".bubble__pop"));
       if (RM) { others.forEach((b) => { b.el.style.opacity = "0"; }); return; }
