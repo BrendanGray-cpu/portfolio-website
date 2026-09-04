@@ -64,10 +64,10 @@ export const PROJECTS = [
     link: null,
     image: `${IMG}/previews/supplier-experience.webp`,
     thumb: `${IMG}/previews/supplier-experience-sm.webp`,
-    aspect: 2814 / 1576,
-    alt: "Welcome to BambooHR screen: a green page with a Let’s Go button, surrounded by scattered HR icons",
-    focus: [0.5, 0.5],
-    zoom: 1,
+    aspect: 1666 / 752,
+    alt: "Timeline of the supplier experience initiative from 2023 to 2025: contact center, accessibility improvements, attachment drawers, satisfaction survey, and visual workflow",
+    focus: [0.42, 0.45],
+    zoom: 0.97,
     sections: [
       { heading: "Problem", items: [
         "Graphite Connect was built for the customers who pay for it — buyers managing risk and relationships for their supplier base. Suppliers were never originally designed for. Every new buyer brought tens to hundreds of thousands of suppliers onto the platform, and testing said the same thing over and over: the platform felt confusing, and it wasn’t built with them in mind. That friction cost more than the supplier’s time. A tedious onboarding strained the buyer–supplier relationship, and suppliers complained to the buyer about it. Every point of friction across thousands of onboardings turned into support tickets.",
@@ -150,10 +150,10 @@ export const PROJECTS = [
     cta: "See It in Action",
     image: `${IMG}/previews/trial-experience.webp`,
     thumb: `${IMG}/previews/trial-experience-sm.webp`,
-    aspect: 2708 / 1576,
-    alt: "The trial hub’s starting point: topic chips like Payroll, Hiring, and Onboarding above three suggested things to explore",
-    focus: [0.32, 0.44],
-    zoom: 1.65,
+    aspect: 2814 / 1576,
+    alt: "Welcome to BambooHR screen: a green page with a Let’s Go button, surrounded by scattered HR icons",
+    focus: [0.5, 0.5],
+    zoom: 1,
     sections: [
       { heading: "Problem", items: [
         "Before this, the trial had no real guidance. A user created an account, landed on the home page, and had to find what mattered to them on their own. Most buyers assume HRIS software is about 90% the same and just need to know where things are so they can judge the feel of it. The trial didn’t help them do that. People got dropped off, clicked around for 10 to 20 minutes, and left and as a result, it didn’t convert well. We did have a small tour guide, but it sat buried under a button on the home page. The users who found it stayed in the trial longer and converted at higher rates, so we already knew guidance worked, we just hadn’t made it the default.",
