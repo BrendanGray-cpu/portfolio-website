@@ -64,10 +64,10 @@ export const PROJECTS = [
     link: null,
     image: `${IMG}/previews/supplier-experience.webp`,
     thumb: `${IMG}/previews/supplier-experience-sm.webp`,
-    aspect: 1666 / 752,
-    alt: "Timeline of the supplier experience initiative from 2023 to 2025: contact center, accessibility improvements, attachment drawers, satisfaction survey, and visual workflow",
-    focus: [0.42, 0.45],
-    zoom: 0.97,
+    aspect: 2814 / 1576,
+    alt: "Welcome to BambooHR screen: a green page with a Let’s Go button, surrounded by scattered HR icons",
+    focus: [0.5, 0.5],
+    zoom: 1,
     sections: [
       { heading: "Problem", items: [
         "Graphite Connect was built for the customers who pay for it — buyers managing risk and relationships for their supplier base. Suppliers were never originally designed for. Every new buyer brought tens to hundreds of thousands of suppliers onto the platform, and testing said the same thing over and over: the platform felt confusing, and it wasn’t built with them in mind. That friction cost more than the supplier’s time. A tedious onboarding strained the buyer–supplier relationship, and suppliers complained to the buyer about it. Every point of friction across thousands of onboardings turned into support tickets.",
