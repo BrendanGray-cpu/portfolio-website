@@ -222,8 +222,8 @@ export const FUN = [
     cta: "Explore the Engine",
     image: `${IMG}/previews/motorcycle-engines.webp`,
     thumb: `${IMG}/previews/motorcycle-engines-sm.webp`,
-    aspect: 2710 / 1588,
-    alt: "A 3D four-cylinder motorcycle engine rendered in translucent glass on a dark background",
+    aspect: 2710 / 1586,
+    alt: "Interactive inline-four motorcycle engine in X-ray view, with engine-type controls, a tachometer at 2,000 rpm, and a telemetry chart",
     focus: [0.5, 0.52],
     zoom: 1.21,
     sections: [
