@@ -3,6 +3,7 @@
    ============================================================ */
 import { h, RM, animate, reveal, conceal, icon } from "../util.js";
 import { findItem } from "../data.js";
+import { makeZoomable } from "../lightbox.js";
 
 function renderItems(items) {
   const out = [];
@@ -10,8 +11,14 @@ function renderItems(items) {
     if (typeof it === "string") out.push(h("p", it));
     else if (it.sub) out.push(h("h3", it.sub), h("p", it.text));
     else if (it.list) out.push(h("ul", it.list.map((li) => h("li", li))));
-    else if (it.figure) out.push(h("div.figure-pair", it.figure.map((f) =>
-      h("figure", h("img", { src: f.src, alt: f.alt, width: f.width, height: f.height, loading: "lazy", decoding: "async" }), h("figcaption", f.caption)))));
+    else if (it.figure) {
+      // Share one aspect ratio across the pair so heights and captions line up;
+      // the taller image is cropped at the bottom rather than the shorter one stretched.
+      const aspect = Math.max(...it.figure.map((f) => f.width / f.height));
+      out.push(h("div.figure-pair", it.figure.map((f) =>
+        h("figure", makeZoomable(h("img", { src: f.src, alt: f.alt, width: f.width, height: f.height, loading: "lazy", decoding: "async",
+          style: { aspectRatio: String(aspect) } })), h("figcaption", f.caption)))));
+    }
   }
   return out;
 }
@@ -37,8 +44,10 @@ export function createDetail(sectionKey, slug) {
     src: item.image, alt: item.alt, decoding: "async",
     srcset: `${item.thumb} 900w, ${item.image} 1800w`,
     sizes: "(max-width: 720px) calc(100vw - 48px), 66vw",
+    dataset: { full: item.image },
     style: { objectPosition: `${item.focus[0] * 100}% ${item.focus[1] * 100}%` },
   });
+  makeZoomable(heroImg);
   const hero = h("figure.detail__hero", { style: { aspectRatio: String(item.aspect) } }, heroImg);
 
   const sections = item.sections.map((s) => h("section.detail__section.reveal", h("h2", s.heading), renderItems(s.items)));

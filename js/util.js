@@ -94,5 +94,6 @@ export const ICONS = {
   download: svg('<path d="M8 2.5V10"/><path d="M4.75 7L8 10.25L11.25 7"/><path d="M2.5 11.5V12.5C2.5 13.05 2.95 13.5 3.5 13.5H12.5C13.05 13.5 13.5 13.05 13.5 12.5V11.5"/>'),
   chevLeft: svg('<path d="M9.5 3L5 8L9.5 13"/>').replace("<svg", '<svg class="chev-left"'),
   chevRight: svg('<path d="M6.5 3L11 8L6.5 13"/>').replace("<svg", '<svg class="chev-right"'),
+  close: svg('<path d="M4 4L12 12"/><path d="M12 4L4 12"/>'),
 };
 export const icon = (name) => h("span", { html: ICONS[name], style: { display: "contents" } });
