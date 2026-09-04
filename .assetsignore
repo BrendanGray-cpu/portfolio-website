@@ -1,0 +1,10 @@
+# Not served as static assets (Cloudflare Workers)
+.git
+.gitignore
+.assetsignore
+.wrangler
+wrangler.jsonc
+vercel.json
+README.md
+node_modules
+.DS_Store
