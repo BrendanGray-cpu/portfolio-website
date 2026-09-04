@@ -1,0 +1,48 @@
+/* ============================================================
+   motion.css — keyframes, intro, reduced-motion overrides
+   ============================================================ */
+@keyframes shimmer {
+  from { transform: translateX(-130%); }
+  to   { transform: translateX(130%); }
+}
+
+/* Intro overlay */
+.intro {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: default;
+}
+.intro__inner { position: relative; display: grid; justify-items: center; gap: clamp(8px, 2.5vh, 28px); }
+.intro__hey { font-size: var(--t-4); font-weight: 500; line-height: 1; opacity: 0; will-change: transform, opacity; }
+.intro__name {
+  display: flex; gap: 0.22em;
+  font-size: var(--t-hero); font-weight: 500; line-height: 0.95; letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.intro__first, .intro__last { display: inline-block; will-change: transform; }
+.intro__first { color: var(--black); }
+.intro__last { color: var(--gray); }
+.intro__skip {
+  position: absolute; right: var(--margin); bottom: var(--s-6);
+  font-size: var(--t-0); color: var(--gray-text); opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+.intro__skip.is-visible { opacity: 1; }
+.intro__skip:hover { color: var(--black); }
+
+/* Staggered reveal helpers (JS sets the animation via WAAPI; these
+   keep unrevealed items invisible without flashing) */
+.is-staging .reveal { opacity: 0; }
+.is-staging .bubble { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .bubble:hover .bubble__scale { transform: scale(1.04); }
+}
