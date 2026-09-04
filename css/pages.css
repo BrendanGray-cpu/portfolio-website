@@ -28,10 +28,18 @@
   border-radius: var(--radius);
   overflow: hidden;
   background: #f2f2f2;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 24px 48px -24px rgba(0,0,0,0.35);
+  box-shadow: var(--bubble-shadow);
   align-self: start;
 }
 .detail__hero img { width: 100%; height: 100%; object-fit: cover; }
+/* light gray inner border, drawn above the image */
+.detail__hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--hairline);
+  pointer-events: none;
+}
 
 .detail__body { margin-top: var(--s-8); }
 .detail__lede { font-size: var(--t-2); color: var(--gray-text); font-weight: 500; line-height: 1.35; margin-bottom: var(--s-7); }
