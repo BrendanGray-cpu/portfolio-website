@@ -13,7 +13,7 @@ export function createAbout() {
       h("h2", "Contact me"),
       h("a", { href: SITE.linkedin, target: "_blank", rel: "noopener noreferrer" }, SITE.linkedin.replace(/\/$/, ""), h("span.sr-only", " (opens in a new tab)")),
       h("a", { href: `mailto:${SITE.email}` }, SITE.email)),
-    h("a.btn", { href: SITE.resume, download: "Brendan-Gray-Resume.pdf" }, icon("download"), "Download My Resume"),
+    h("a.btn", { href: SITE.resume, download: "Brendan-Gray-Resume.pdf" }, icon("download"), h("span.btn__label", "Download My Resume")),
   );
   const el = h("section.about.page", { dataset: { kind: "about" } },
     photo,

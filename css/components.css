@@ -61,7 +61,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 18px;
+  padding: 15px 18px;
   border-radius: var(--radius-btn);
   background: var(--black);
   color: var(--white);
@@ -69,13 +69,18 @@
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.005em;
-  text-box: trim-both cap alphabetic;
   overflow: hidden;
   isolation: isolate;
   transition: background-color var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 .btn svg { width: 16px; height: 16px; flex: none; }
+/* Optical centring: trim the label box to cap height so the flex
+   centre lands on the caps, not on the font's line box. */
+.btn__label { display: block; line-height: 1; text-box: trim-both cap alphabetic; }
+@supports not (text-box: trim-both cap alphabetic) {
+  .btn__label { transform: translateY(-0.08em); }
+}
 .btn:hover { background: var(--btn-hover); }
 .btn:active { transform: translateY(1px); }
 .btn::after {

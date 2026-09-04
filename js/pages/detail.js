@@ -31,7 +31,7 @@ export function createDetail(sectionKey, slug) {
   );
   const cta = item.link ? h("div.detail__cta.reveal",
     h("a.btn", { href: item.link, target: "_blank", rel: "noopener noreferrer" },
-      icon("external"), item.cta, h("span.sr-only", " (opens in a new tab)"))) : null;
+      icon("external"), h("span.btn__label", item.cta), h("span.sr-only", " (opens in a new tab)"))) : null;
 
   const heroImg = h("img", {
     src: item.image, alt: item.alt, decoding: "async",
