@@ -140,6 +140,8 @@ export function createStage(sectionKey) {
     el, focusEl: heading, bubbles,
     bubbleFor: (slug) => bubbles.find((b) => b.item.slug === slug) || null,
     hideTitle,
+    /** Re-apply STAGE params live (used by the tuner). */
+    retune() { layout(); return renderGlass(); },
     imageFor: (slug) => bubbles.find((b) => b.item.slug === slug)?.img || null,
     field,
 

@@ -57,9 +57,12 @@
   --bubble-shadow-y: 28.5px;
   --bubble-shadow-blur: 18px;
   --bubble-shadow-alpha: 0.16;
+  --bubble-shadow-spread: -28.5px;
+  --bubble-ring-blur: 2px;
+  --bubble-ring-alpha: 0.06;
   --bubble-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.06),
-    0 var(--bubble-shadow-y) var(--bubble-shadow-blur) calc(var(--bubble-shadow-y) * -1) rgba(0, 0, 0, var(--bubble-shadow-alpha));
+    0 1px var(--bubble-ring-blur) rgba(0, 0, 0, var(--bubble-ring-alpha)),
+    0 var(--bubble-shadow-y) var(--bubble-shadow-blur) var(--bubble-shadow-spread) rgba(0, 0, 0, var(--bubble-shadow-alpha));
   --d-fast: 180ms;
   --d-base: 280ms;
   --d-slow: 520ms;
