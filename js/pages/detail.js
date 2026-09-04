@@ -11,7 +11,7 @@ function renderItems(items) {
     else if (it.sub) out.push(h("h3", it.sub), h("p", it.text));
     else if (it.list) out.push(h("ul", it.list.map((li) => h("li", li))));
     else if (it.figure) out.push(h("div.figure-pair", it.figure.map((f) =>
-      h("figure", h("img", { src: f.src, alt: f.alt, loading: "lazy", decoding: "async" }), h("figcaption", f.caption)))));
+      h("figure", h("img", { src: f.src, alt: f.alt, width: f.width, height: f.height, loading: "lazy", decoding: "async" }), h("figcaption", f.caption)))));
   }
   return out;
 }

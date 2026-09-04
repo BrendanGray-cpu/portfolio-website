@@ -71,22 +71,23 @@ export function createStage(sectionKey) {
   /* ---------- glass rendering ---------- */
   const g = glass();
   async function renderGlass() {
-    await Promise.all(bubbles.map(async (b) => {
-      if (!b.img) b.img = await preload(b.item.image, 2500);
+    await Promise.all(bubbles.map((b) => b.img ? null : preload(b.item.image, 2500).then((img) => { b.img = img; })));
+    for (const b of bubbles) {
       if (destroyed) return;
       if (!g) {
         if (!b.glassEl.querySelector("img")) {
           b.glassEl.classList.add("is-css");
           b.glassEl.append(h("img", { src: b.item.thumb, alt: "", style: { objectPosition: `${b.item.focus[0] * 100}% ${b.item.focus[1] * 100}%` } }));
         }
-        return;
+        continue;
       }
       if (!b.canvas) { b.canvas = h("canvas", { "aria-hidden": "true" }); b.glassEl.append(b.canvas); }
       const px = MOBILE.matches ? b.glassEl.clientWidth || 180 : D;
       const size = bufferSize(px * 1.12);
       if (b.canvas.width !== size) { b.canvas.width = size; b.canvas.height = size; }
       g.draw(b.canvas, b.img, { strength: 1, shape: 0, focus: b.item.focus, aspect: 1 });
-    }));
+      await raf();                       // spread GPU uploads across frames
+    }
   }
 
   let resizeT;
