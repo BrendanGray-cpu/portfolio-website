@@ -35,7 +35,6 @@ export const PROJECTS = [
     aspect: 2702 / 1500,
     alt: "BambooHR settings page with the two-step sign-up: add payment information and accept the terms of service",
     focus: [0.6, 0.53],
-    zoom: 1.75,
     sections: [
       { heading: "Problem", items: [
         "Before this, starting a subscription was informal and mostly happened outside the product. A prospect added a payment method through a link outside BambooHR, and a sales rep started the subscription for them. That created some problems. Legal had no in-app record of who accepted the terms of service or when, so when a customer disputed that they’d agreed, we couldn’t prove it. Additionally, we didn’t offer contracts at all. BambooHR traditionally is a month-to-month subscription, which makes it easy for a customer to sign up and just as easy to leave. Contracts are an industry standard, so not having them was kind of surprising. The company wanted to offer extended-term contracts to the customers who wanted them, record acceptance properly, and make the start of a subscription a formal, recorded event.",
@@ -67,7 +66,6 @@ export const PROJECTS = [
     aspect: 1666 / 752,
     alt: "Timeline of the supplier experience initiative from 2023 to 2025: contact center, accessibility improvements, attachment drawers, satisfaction survey, and visual workflow",
     focus: [0.42, 0.45],
-    zoom: 0.97,
     sections: [
       { heading: "Problem", items: [
         "Graphite Connect was built for the customers who pay for it — buyers managing risk and relationships for their supplier base. Suppliers were never originally designed for. Every new buyer brought tens to hundreds of thousands of suppliers onto the platform, and testing said the same thing over and over: the platform felt confusing, and it wasn’t built with them in mind. That friction cost more than the supplier’s time. A tedious onboarding strained the buyer–supplier relationship, and suppliers complained to the buyer about it. Every point of friction across thousands of onboardings turned into support tickets.",
@@ -111,7 +109,6 @@ export const PROJECTS = [
     aspect: 2710 / 1582,
     alt: "Title screen of the HRIS Buying Lifecycle interactive deck: how SMB prospects buy HR software and how we can best position ourselves",
     focus: [0.26, 0.51],
-    zoom: 0.8,
     sections: [
       { heading: "Problem", items: [
         "Our trial was doing too many jobs. Marketing used it as an early tool on their marketing page, sales used it for late-stage conversion, and we were planning on putting a checkout in it. I wasn’t satisfied with how little we understood about where a trial actually fits in a buyer’s head, so I started the study to find out. I questioned whether we had the trial positioned correctly in the buying process, and what to do if we didn’t.",
@@ -153,7 +150,6 @@ export const PROJECTS = [
     aspect: 2814 / 1576,
     alt: "Welcome to BambooHR screen: a green page with a Let’s Go button, surrounded by scattered HR icons",
     focus: [0.5, 0.5],
-    zoom: 1,
     sections: [
       { heading: "Problem", items: [
         "Before this, the trial had no real guidance. A user created an account, landed on the home page, and had to find what mattered to them on their own. Most buyers assume HRIS software is about 90% the same and just need to know where things are so they can judge the feel of it. The trial didn’t help them do that. People got dropped off, clicked around for 10 to 20 minutes, and left and as a result, it didn’t convert well. We did have a small tour guide, but it sat buried under a button on the home page. The users who found it stayed in the trial longer and converted at higher rates, so we already knew guidance worked, we just hadn’t made it the default.",
@@ -191,7 +187,6 @@ export const PROJECTS = [
     aspect: 2688 / 1330,
     alt: "Get Started with BambooHR checkout: a four-step flow (Your Plan, About You, Review, Payment) starting with plan setup",
     focus: [0.23, 0.5],
-    zoom: 1,
     sections: [
       { heading: "Problem", items: [
         "Buying HR software usually means calling sales. Pricing is usually opaque, so getting a quote takes a conversation, and a portion of buyers refuse to do it. Our PM’s research put it around one in eight prospects who wouldn’t talk to sales at all, with more who were reluctant. Each one was a company that might have bought BambooHR and didn’t, because the only way to buy was through a sales rep. We wanted to let people buy the way they’re comfortable buying, and reasoned that those who would have walked will convert. We scoped the first version to U.S. companies under 25 employees with the simplest packages, and left room to expand to larger deals later.",
@@ -225,7 +220,6 @@ export const FUN = [
     aspect: 2710 / 1586,
     alt: "Interactive inline-four motorcycle engine in X-ray view, with engine-type controls, a tachometer at 2,000 rpm, and a telemetry chart",
     focus: [0.5, 0.52],
-    zoom: 1.21,
     sections: [
       { heading: "What it is", items: [
         "An interactive 3D motorcycle engine you can rotate, explode into parts, and slice open with a cross-section view. Hover any part and it tells you what it is. A guided tour walks you through where the energy goes, step by step, and you can switch between a few different kinds of engine.",
@@ -250,7 +244,6 @@ export const FUN = [
     aspect: 2648 / 1556,
     alt: "A dark website fractured into glass shards, with the headline “Not feeling quite whole?” spanning the cracks",
     focus: [0.31, 0.5],
-    zoom: 1,
     sections: [
       { heading: "What it is", items: [
         "A conceptual website whose surface breaks apart and comes back together. The UI shatters into glass shards and moves, playing on the idea of something broken being made whole again.",
@@ -275,7 +268,6 @@ export const FUN = [
     aspect: 2812 / 1512,
     alt: "Wellspring Group’s landing page: teal bubbles gathered into a bottle silhouette above the line “Great soda starts with good soil”",
     focus: [0.52, 0.5],
-    zoom: 1,
     sections: [
       { heading: "What it is", items: [
         "A brand and marketing site for a fictional food-and-beverage conglomerate. Wellspring Group owns a set of beverage companies, and the site walks you through its mission, history, the companies under it, and its stats.",
@@ -300,7 +292,6 @@ export const FUN = [
     aspect: 2686 / 1578,
     alt: "Vantage Financial portfolio dashboard showing total assets, a performance chart, and open positions",
     focus: [0.72, 0.71],
-    zoom: 1.19,
     sections: [
       { heading: "What it is", items: [
         "A fictional fintech dashboard for trading. You can see your holdings, market news, and stock data, track the usual trading metrics, and make trades from it.",

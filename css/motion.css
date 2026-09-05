@@ -36,7 +36,7 @@
 /* Staggered reveal helpers (JS sets the animation via WAAPI; these
    keep unrevealed items invisible without flashing) */
 .is-staging .reveal { opacity: 0; }
-.is-staging .bubble { opacity: 0; }
+.is-staging .card { opacity: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -44,5 +44,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .bubble:hover .bubble__scale { transform: scale(1.04); }
+  .card:hover, .card:focus-visible { transform: none; }
 }

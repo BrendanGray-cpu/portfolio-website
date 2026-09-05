@@ -1,5 +1,5 @@
 /* ============================================================
-   components.css — nav, buttons, bubbles, meta, pager, figures
+   components.css — nav, buttons, cards, lightbox, meta, pager, figures
    ============================================================ */
 
 /* ---------- Nav ---------- */
@@ -115,127 +115,80 @@
 .textlink:hover .chev-left { transform: translateX(-3px); }
 .textlink:hover .chev-right { transform: translateX(3px); }
 
-/* ---------- Glass bubbles ---------- */
+/* ---------- Cards (Projects two-over-three, Fun Zone 2×2) ---------- */
 .stage {
   position: relative;
-  height: calc(100dvh - var(--nav-h));
-  min-height: 520px;
-  --d: 224px;
+  min-height: calc(100dvh - var(--nav-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-5) var(--gutter) var(--s-8);
 }
-.bubble {
-  position: absolute;
-  left: 0; top: 0;
-  width: var(--d);
-  height: var(--d);
-  transform: translate(-50%, -50%);
+.cards { display: flex; flex-direction: column; gap: var(--card-row-gap); width: 100%; }
+.cards__row { display: flex; justify-content: center; gap: var(--card-gap); }
+.cards[data-rows="2-3"] .cards__row:last-child { gap: var(--card-gap-wide); }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-5);
+  width: var(--card-w);
+  padding: var(--s-5) var(--s-5) var(--s-6);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  transform: scale(1);
+  transition: transform var(--d-spring) var(--spring-bouncy), box-shadow var(--d-base) var(--ease-out);
   will-change: transform;
-  outline: none;
   -webkit-tap-highlight-color: transparent;
 }
-.bubble__pop { width: 100%; height: 100%; position: relative; }
-.bubble__scale {
-  width: 100%; height: 100%;
-  transform: scale(1);
-  transition: transform var(--d-spring) var(--spring-bouncy);
-  will-change: transform;
-}
-.bubble__glass {
-  width: 100%; height: 100%;
-  border-radius: 50%;
+.card:hover, .card:focus-visible { transform: scale(var(--card-hover)); box-shadow: var(--card-shadow-hover); }
+.card:focus-visible { outline: 2px solid var(--black); outline-offset: 4px; border-radius: var(--radius); }
+.card__thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
   overflow: hidden;
   background: #f2f2f2;
-  box-shadow: var(--bubble-shadow);
-  transform: translateZ(0);
 }
-.stage[data-layout="diamond"] .bubble__glass { box-shadow: var(--fun-shadow); }
-.bubble__glass > canvas, .bubble__glass > img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.bubble__glass.is-css { position: relative; }
-.bubble__glass.is-css::after {
+.card__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.card__thumb::after {
   content: "";
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(120% 90% at 30% 12%, rgba(255,255,255,0.42), rgba(255,255,255,0) 45%),
-    radial-gradient(100% 100% at 50% 50%, rgba(0,0,0,0) 72%, rgba(0,0,0,0.28) 100%);
-  box-shadow: inset 0 -10px 24px -10px rgba(0, 0, 0, 0.55), inset 0 2px 3px rgba(255,255,255,0.5);
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--hairline);
   pointer-events: none;
 }
-.bubble:hover .bubble__scale,
-.bubble:focus-visible .bubble__scale { transform: scale(var(--bubble-hover)); }
-.bubble:focus-visible .bubble__glass { outline: 2px solid var(--black); outline-offset: 5px; }
-
-.bubble__label {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, 4px);
-  margin-top: var(--s-1);
+.card__title {
+  display: block;
   font-size: var(--t-2);
   font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
-  color: var(--black);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--d-base) var(--ease-out), transform var(--d-slow) var(--spring-soft);
-}
-.bubble:hover .bubble__label,
-.bubble:focus-visible .bubble__label { opacity: 1; transform: translate(-50%, var(--label-offset)); }
-
-@media (hover: none) {
-  .bubble__label { opacity: 1; transform: translate(-50%, 10px); }
-}
-
-/* Centre title (desktop) */
-.stage__title {
-  position: absolute;
-  left: 50%;
-  top: var(--cy, 50%);
-  max-width: var(--inner, 320px);
-  margin: 0;
-  transform: translate(-50%, -50%) translateY(10px) scale(0.97);
-  opacity: 0;
-  font-size: var(--t-4);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.015em;
+  line-height: 1.15;
   text-align: center;
   text-wrap: balance;
   color: var(--black);
-  pointer-events: none;
-  transition: opacity var(--d-fast) var(--ease-out), transform var(--d-slow) var(--spring-soft);
+  margin-top: auto;
 }
-.stage__title.is-visible { opacity: 1; transform: translate(-50%, -50%); }
-@media (min-width: 721px) { .bubble__label { display: none; } }
-@media (max-width: 720px) { .stage__title { display: none; } }
 
-/* Mobile: compact nav, grid instead of pentagon/diamond */
+/* Mobile: compact nav, card grid */
 @media (max-width: 720px) {
   .nav { gap: var(--s-3); }
   .wordmark { font-size: var(--t-1); }
   .tabs { gap: var(--s-1); }
   .tab { padding: 10px 8px; font-size: 15px; }
-  .stage {
-    height: auto;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s-7) var(--s-5);
-    padding: var(--s-4) var(--margin) var(--s-9);
-    justify-items: center;
-    --d: min(38vw, 180px);
-  }
-  .bubble { position: static; transform: none !important; width: auto; height: auto; }
-  .bubble__pop { width: var(--d); height: auto; }
-  .bubble__scale { width: var(--d); height: var(--d); }
-  .bubble__label {
-    position: static; opacity: 1; transform: none !important;
-    display: block; text-align: center; margin-top: var(--s-3);
-    font-size: var(--t-2); white-space: normal; max-width: 44vw;
-  }
-  .bubble:hover .bubble__scale { transform: none; }
+  .stage { min-height: 0; align-items: start; padding: var(--s-4) var(--margin) var(--s-9); }
+  .cards, .cards__row { display: contents; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  .card { width: 100%; padding: var(--s-4) var(--s-4) var(--s-5); gap: var(--s-4); }
+  .card__title { font-size: var(--t-1); }
+  .card:hover, .card:focus-visible { transform: scale(1.02); }
+}
+@media (max-width: 400px) {
+  .cards { grid-template-columns: 1fr; }
 }
 
 /* ---------- Morph layer ---------- */
@@ -247,11 +200,9 @@
   position: absolute;
   overflow: hidden;
   background: #f2f2f2;
-  box-shadow: var(--bubble-shadow);
+  box-shadow: var(--card-shadow);
 }
-.morph.is-fun { box-shadow: var(--fun-shadow); }
 .morph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.morph > canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 /* ---------- Lightbox ---------- */
 .zoomable { cursor: zoom-in; }

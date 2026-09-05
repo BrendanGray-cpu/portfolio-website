@@ -25,14 +25,12 @@ The site is host-agnostic. Upload the folder (or connect the repo) to any static
 index.html            shell: nav, <main>, morph layer
 css/tokens.css        palette, type scale, spacing, spring easings
 css/base.css          reset, @font-face, typography rules, focus
-css/components.css    nav, buttons, glass bubbles, figures, pager
+css/components.css    nav, buttons, project cards, lightbox, figures, pager
 css/pages.css         stage, detail and about layouts + responsive
 css/motion.css        intro overlay, reduced-motion overrides
 js/data.js            all copy and project metadata (edit content here)
 js/router.js          history routing and page lifecycle
-js/transitions.js     circle→rectangle morph, staggered page choreography
-js/glass.js           WebGL lens shader for the glass bubbles (CSS fallback)
-js/gravity.js         leashed-gravity pointer field (from Wellspring Group)
+js/transitions.js     thumbnail→hero morph, staggered page choreography
 js/intro.js           "Hey, I'm Brendan Gray" opening beat (once per session)
 js/pages/*.js         projects / fun zone stage, detail, about
 assets/               fonts, optimised images, resume PDF
@@ -42,4 +40,3 @@ assets/               fonts, optimised images, resume PDF
 
 - `/?intro` — replay the intro beat
 - `/?rm` — force reduced-motion behaviour
-- `/?nogl` — force the CSS glass fallback
