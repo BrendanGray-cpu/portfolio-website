@@ -58,7 +58,7 @@ export const PROJECTS = [
     name: "Supplier Experience",
     company: "Graphite Connect",
     role: "Lead Product Designer, sole designer",
-    duration: "Aug 2023 – Dec 2025",
+    duration: "Aug 2023 – Oct 2025",
     context: "B2B procurement platform. An initiative of seven projects to improve the experience of one persona — suppliers.",
     link: null,
     image: `${IMG}/previews/supplier-experience.webp`,
