@@ -180,7 +180,7 @@ export const PROJECTS = [
     role: "Lead Product Designer, design and usability owner in a PM/design/engineering trio",
     duration: "~3 months, 2025",
     context: "Self-service purchase flow that lets small companies buy BambooHR without talking to sales, a first for the product.",
-    link: "https://trial-checkout-real.vercel.app/signup",
+    link: "https://trial-checkout-real.vercel.app/",
     cta: "Try the Prototype",
     image: `${IMG}/previews/checkout.webp`,
     thumb: `${IMG}/previews/checkout-sm.webp`,
