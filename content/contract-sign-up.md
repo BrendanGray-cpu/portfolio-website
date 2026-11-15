@@ -1,10 +1,12 @@
 ---
 title: Contract Sign-up
 order: 1
+featured: 1
+folder: video/contract-signer.jpg | video/contract-payer.jpg | video/contract-inapp.jpg
 illustration: contract
 company: BambooHR
 status: Shipped
-role: Product Designer, sole designer on the initiative
+role: Lead Product Designer, sole designer on the initiative
 team: PM, design and engineering trio
 timeline: About 11 months, to February 2026
 caption: Review, sign and pay after working with a sales rep.

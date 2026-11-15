@@ -200,8 +200,68 @@ def rec_card(i, name, f):
 
 recs_html = f'''
   <section class="recs" aria-labelledby="recs-title">
-    <header class="section-head"><h2 id="recs-title" data-reveal>What people are saying</h2></header>
+    <header class="section-head"><h2 id="recs-title" data-reveal>What people say</h2></header>
     <div class="rec-grid"><div class="rec-col">{''.join(rec_card(i, n, f) for i, (n, f) in enumerate(recs) if i % 2 == 0)}</div><div class="rec-col">{''.join(rec_card(i, n, f) for i, (n, f) in enumerate(recs) if i % 2 == 1)}</div></div>
+  </section>'''
+
+
+# ---------- project cards ----------
+def card_sheet(p):
+    """The real UI behind a project's illustration: its case study video, or a still (card_media)."""
+    m = p.get('card_media') or p.get('hero_video')
+    if not m:
+        return ''
+    if m.endswith('.mp4'):
+        poster = m.rsplit('.', 1)[0] + '.jpg'
+        return f'<div class="sheet" aria-hidden="true"><video data-src="/assets/video/{m}" poster="/assets/video/{poster}" muted loop playsinline preload="none"></video></div>'
+    return f'<div class="sheet" aria-hidden="true"><img src="/assets/img/{m}" alt="" loading="lazy" decoding="async"></div>'
+
+
+def card_text(p, tag, title=True):
+    head = f'<{tag}>{E(p["title"])} <span class="arr" aria-hidden="true">{ARROW_R}</span></{tag}>' if title else ''
+    return f'''<div class="txt">
+      {head}
+      <p class="cap">{inline(p['caption'])}</p>
+      <p class="role"><span>Role</span> {E(p['role'].split(',')[0])}, {E(p['company'])}</p>
+    </div>'''
+
+
+def project_card(p, i, tag='h2'):
+    """Work page tile. The illustration plays once when it scrolls into view; hover or focus (or, on
+    touch, the end of the story) crossfades to the real UI. See js/project-cards.js."""
+    return f'''<a class="pcard pcard--tile" href="/work/{p['slug']}.html" data-card data-autoplay data-pcard data-reveal style="--i:{i}">
+    <div class="ill">{card_sheet(p)}<div class="face"><canvas data-illustration="{p['illustration']}" aria-hidden="true"></canvas></div></div>
+    {card_text(p, tag)}
+  </a>'''
+
+
+LOGOS = {'BambooHR': 'bamboohr.svg', 'Graphite Connect': 'graphite-connect.svg'}   # assets/img/logos, drawn as a mask in --ink-2
+
+
+def folder_card(p, i):
+    """Home: a folder of real screenshots. The first one stands up out of the folder; hover (or, on
+    touch, scrolling it into view) fans the others out. The front pocket holds the title and never moves."""
+    shots = [s.strip() for s in p['folder'].split('|')]
+    lead, rest = shots[0], shots[1:]
+    papers = ''.join(f'<span class="paper paper--{k + 1}"><img src="/assets/{E(s)}" alt="" loading="lazy" decoding="async"></span>' for k, s in reversed(list(enumerate(rest))))
+    papers += f'<span class="paper paper--lead"><img src="/assets/{E(lead)}" alt="" loading="lazy" decoding="async"></span>'
+    return f'''<a class="fcard" href="/work/{p['slug']}.html" data-folder data-reveal style="--i:{i}">
+    <div class="folder" aria-hidden="true">
+      <span class="back"></span>{f'<span class="tab-logo" style="--logo:url(/assets/img/logos/{LOGOS[p["company"]]})"></span>' if p['company'] in LOGOS else ''}
+      {papers}
+      <span class="front"><span class="front-title">{E(p['title'])}</span><span class="front-meta">{E(p['company'])}</span></span>
+    </div>
+    <h3 class="sr-only">{E(p['title'])}</h3>
+    {card_text(p, 'h3', title=False)}
+  </a>'''
+
+
+featured = sorted((p for p in projects if p.get('featured')), key=lambda p: int(p['featured']))
+featured_html = f'''
+  <section class="featured" aria-labelledby="featured-title">
+    <header class="section-head featured-head"><h2 id="featured-title" data-reveal>Selected work</h2>
+      <a class="cta" href="/work.html" data-reveal>See all {len(projects)} projects {ARROW_R}</a></header>
+    <div class="featured-grid">{''.join(folder_card(p, i) for i, p in enumerate(featured))}</div>
   </section>'''
 
 
@@ -222,7 +282,6 @@ home = f'''
         <p data-reveal>I&rsquo;m a <span class="tp" data-tp="designer">product designer</span> who started in <span class="tp" data-tp="graphic">graphic design</span>. Since then I&rsquo;ve taken on <span class="tp" data-tp="pm">product management</span> work, designed B2B software for almost five years, and started prototyping nearly everything in <span class="tp" data-tp="code">code</span>.</p>
         <p data-reveal>I work on complex software with strict requirements, helping them <span class="tp" data-tp="grow">grow</span> and <span class="tp" data-tp="scale">scale</span>: procurement, HR, billing, contracts. My goal is a solution that feels <span class="tp" data-tp="obvious">obvious</span> to the person using it.</p>
         <p data-reveal><span class="tp" data-tp="ai">AI</span> has changed how I work more than anything else in my career. I use it to test ideas in real code within days, and it helps me <span class="tp" data-tp="learn">learn</span> and <span class="tp" data-tp="explore">explore</span> in ways I never could before.</p>
-        <a class="cta" href="/work.html" data-reveal>See the work {ARROW_R}</a>
       </div>
     </div>
     <aside class="hero-head" aria-label="Brendan as a point cloud. Move your cursor across the face to scramble it and move him to the next stage of a design project.">
@@ -236,10 +295,10 @@ home = f'''
       <div id="dials" hidden></div><div id="stage" hidden></div>
     </aside>
   </section>
-  {recs_html}
+  {featured_html}
 </div>'''
 write('index.html', page('Brendan Gray, product builder', 'Brendan Gray is a product designer who builds: B2B product design, research, and prototypes in code.', home, active='/',
-                         scripts='<script type="module" src="/js/intro.js"></script><script type="module" src="/js/head.js"></script><script type="module" src="/js/rec-dials.js"></script><script type="module" src="/js/hero-dials.js"></script><script type="module" src="/js/intro-lab.js"></script><script type="module" src="/js/type-play.js"></script><script type="module" src="/js/type-lab.js"></script>',
+                         scripts='<script type="module" src="/js/intro.js"></script><script type="module" src="/js/head.js"></script><script type="module" src="/js/card-dials.js"></script><script type="module" src="/js/hero-dials.js"></script><script type="module" src="/js/intro-lab.js"></script><script type="module" src="/js/type-play.js"></script><script type="module" src="/js/type-lab.js"></script>',
                          head_extra=INTRO_HOLD))
 
 
@@ -298,23 +357,13 @@ def hero_media(p):
 
 
 # ---------- work ----------
-def card(p, i):
-    return f'''<a class="work-card" href="/work/{p['slug']}.html" data-card data-reveal style="--i:{i % 2}">
-    <div class="ill"><canvas data-illustration="{p['illustration']}" aria-hidden="true"></canvas></div>
-    <div class="txt">
-      <h2>{E(p['title'])} <span class="arr" aria-hidden="true">{ARROW_R}</span></h2>
-      <div class="reveal"><div class="inner"><p>{inline(p['caption'])} <span class="sep" aria-hidden="true">·</span> {E(p['role'])}, {E(p['company'])}</p></div></div>
-    </div>
-  </a>'''
-
-
 work = f'''
 <div class="page">
   <header class="page-head">
     <h1 data-reveal>Selected work</h1>
-    <p data-reveal style="--i:1">Five B2B projects, from research to shipped flows.</p>
+    <p data-reveal style="--i:1">Five B2B projects: two shipped, two that didn&rsquo;t, and one study.</p>
   </header>
-  <section class="work-grid">{''.join(card(p, i) for i, p in enumerate(projects))}
+  <section class="work-grid">{''.join(project_card(p, i % 2) for i, p in enumerate(projects))}
   </section>
 </div>'''
 write('work.html', page('Work, Brendan Gray', 'Selected B2B product design work: contract sign-up, supplier experience, research, checkout and an AI trial.', work, active='/work.html'))
@@ -462,6 +511,7 @@ about = f'''
       <a class="btn" href="{SITE['resume']}" download="Brendan-Gray-Resume.pdf" data-reveal>Download resume <svg class="ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v6M3.5 5.5L6 8l2.5-2.5M2.5 10h7"/></svg></a>
     </div>
   </section>
+  {recs_html}
   <section class="facts">
     <div data-reveal><h2 class="section-title">Experience</h2><dl class="xp">{xp}</dl></div>
     <div data-reveal style="--i:1"><h2 class="section-title">Skills</h2><ul class="chips">{''.join(f'<li>{E(s)}</li>' for s in SKILLS)}</ul>
@@ -477,4 +527,5 @@ about = f'''
     </div>
   </section>
 </div>'''
-write('about.html', page('About, Brendan Gray', 'Brendan Gray, product designer in Salt Lake City. Background, how I work, experience and contact.', about, active='/about.html'))
+write('about.html', page('About, Brendan Gray', 'Brendan Gray, product designer in Salt Lake City. Background, how I work, experience and contact.', about, active='/about.html',
+                         scripts='<script type="module" src="/js/rec-dials.js"></script>'))

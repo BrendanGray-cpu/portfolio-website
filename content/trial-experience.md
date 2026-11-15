@@ -1,6 +1,8 @@
 ---
 title: Trial Experience
 order: 5
+featured: 3
+folder: video/trial-hub.jpg | video/trial-welcome.jpg | img/versions/trial-hub-page.jpg
 illustration: trial
 company: BambooHR
 status: Didn't ship while I was there

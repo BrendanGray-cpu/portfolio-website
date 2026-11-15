@@ -1,6 +1,9 @@
 ---
 title: Supplier Experience
 order: 2
+featured: 2
+folder: img/supplier/contact-center-after.webp | img/supplier/workflow-after.webp | img/supplier/contact-center-before.webp
+card_media: supplier/contact-center-after.webp
 illustration: supplier
 company: Graphite Connect
 status: Shipped

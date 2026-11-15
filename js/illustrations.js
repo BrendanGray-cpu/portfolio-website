@@ -17,6 +17,8 @@ const V = {
   card: { grid: true, gridSize: 20, gridOpacity: 0.35, scale: 0.92 },
 };
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// data-autoplay: wait this long after the card is in view; project cards wait until this much of them shows
+const AUTO = { delay: 500, threshold: 0.5 };
 
 import { makeKit, clamp, out, io, back, seg, lerp } from './draw-kit.js';
 const kit = (ctx) => makeKit(ctx, V);
@@ -217,20 +219,31 @@ function drawTrial(k, t) {
 const DRAW = { contract: drawContract, supplier: drawSupplier, hris: drawHris, checkout: drawCheckout, trial: drawTrial };
 
 const items = [];
+const byCanvas = new WeakMap();
+/* for js/dot-transition.js: put a story back at its rest frame (drawn next frame, even while hidden),
+   or play it forward from wherever it is */
+export function rewindIllustration(canvas) { const it = byCanvas.get(canvas); if (!it) return; it.t = 0; it.hovering = false; it.ended = false; it.dirty = true; }
+export function playIllustration(canvas) { const it = byCanvas.get(canvas); if (!it) return; it.hovering = true; if (REDUCED) { it.t = 5; it.dirty = true; } }
 export function mountIllustrations(root = document) {
   root.querySelectorAll('canvas[data-illustration]').forEach((canvas) => {
     const draw = DRAW[canvas.dataset.illustration]; if (!draw) return;
     const card = canvas.closest('[data-card]') || canvas;
-    const it = { canvas, draw, t: 0, hovering: false, still: canvas.hasAttribute('data-still'), visible: true };
-    card.addEventListener('pointerenter', () => { it.hovering = true; if (REDUCED) it.t = 5; });
-    card.addEventListener('pointerleave', () => { if (card.hasAttribute('data-autoplay')) return; it.hovering = false; if (REDUCED) it.t = 0; });
-    card.addEventListener('focusin', () => { it.hovering = true; if (REDUCED) it.t = 5; });
-    card.addEventListener('focusout', () => { if (card.hasAttribute('data-autoplay')) return; it.hovering = false; if (REDUCED) it.t = 0; });
-    new IntersectionObserver(([e]) => {
-      it.visible = e.isIntersecting;
-      if (e.isIntersecting && card.hasAttribute('data-autoplay') && !it.played) { it.played = true; setTimeout(() => { it.hovering = true; if (REDUCED) it.t = 5; }, 500); }
-    }).observe(canvas);
-    items.push(it);
+    const it = { canvas, card, draw, t: 0, hovering: false, still: canvas.hasAttribute('data-still'), visible: true };
+    const play = () => { it.hovering = true; if (REDUCED) { it.t = 5; it.dirty = true; } };
+    card.addEventListener('pointerenter', play);
+    card.addEventListener('pointerleave', () => { if (card.hasAttribute('data-autoplay')) return; it.hovering = false; if (REDUCED) { it.t = 0; it.dirty = true; } });
+    card.addEventListener('focusin', play);
+    card.addEventListener('focusout', () => { if (card.hasAttribute('data-autoplay')) return; it.hovering = false; if (REDUCED) { it.t = 0; it.dirty = true; } });
+    new IntersectionObserver(([e]) => { it.visible = e.isIntersecting; }).observe(canvas);
+    // autoplay: the story plays once, when the card is half on screen (project cards) or first seen (case study header)
+    if (card.hasAttribute('data-autoplay')) {
+      const auto = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting || it.played) return;
+        it.played = true; auto.disconnect(); setTimeout(play, AUTO.delay);
+      }, { threshold: card.hasAttribute('data-pcard') ? AUTO.threshold : 0 });
+      auto.observe(canvas);
+    }
+    items.push(it); byCanvas.set(canvas, it);
   });
   if (items.length && !mountIllustrations.running) { mountIllustrations.running = true; requestAnimationFrame(loop); }
 }
@@ -254,7 +267,9 @@ function render(it, dt) {
     ctx.stroke(); ctx.globalAlpha = 1;
   }
   ctx.translate(ox, oy); ctx.scale(s, s);
-  it.draw(kit(ctx), it.t);
+  const box = it.draw(kit(ctx), it.t);
+  // tell the card once the story has finished (js/project-cards.js shows the UI on touch screens)
+  if (!it.ended && box?.end && it.t >= box.end) { it.ended = true; it.card.dispatchEvent(new CustomEvent('illustration:end')); }
 }
 
 let last = performance.now();

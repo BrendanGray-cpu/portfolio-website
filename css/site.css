@@ -111,7 +111,8 @@ p { margin: 0; text-wrap: pretty; }
 .section-head h2 { font-size: clamp(36px, 4.2vw, 56px); }
 .section-head p { color: var(--muted); font-size: 19px; }
 
-/* ---------- recommendations: open type on white, no boxes ---------- */
+/* ---------- recommendations: open type on white, no boxes (About) ---------- */
+.about ~ .recs { padding: var(--s8) 0 var(--s7); }
 .rec-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s6) var(--rec-columns, var(--s7)); align-items: start; }
 .rec-col { display: grid; gap: var(--rec-between, var(--s7)); align-content: start; }
 .rec { display: grid; gap: 0; justify-items: start; }   /* spacing is margins, so the collapsed text adds no extra gap */
@@ -135,24 +136,81 @@ p { margin: 0; text-wrap: pretty; }
 
 /* ---------- work ---------- */
 .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s6) var(--s4); padding-bottom: var(--s8); }
-.work-card { display: grid; gap: var(--s2); text-decoration: none; color: inherit; align-content: start; }
-.work-card:hover { color: inherit; }
-.work-card:first-child { grid-column: 1 / -1; }
-.work-card .ill { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r-md); overflow: hidden; box-shadow: inset 0 0 0 1px var(--hairline); background: var(--paper); transition: box-shadow .3s; }
-.work-card:first-child .ill { aspect-ratio: 2.3 / 1; }
-.work-card .ill canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.work-card:hover .ill, .work-card:focus-visible .ill { box-shadow: inset 0 0 0 1px var(--hairline-2); }
-.work-card h2 { font-size: 30px; letter-spacing: -0.02em; line-height: 1.05; display: inline-flex; align-items: center; gap: 10px; }
-.work-card h2 .arr { display: inline-flex; color: var(--accent); font-size: 22px; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .45s var(--ease-out); }
-.work-card:hover h2 .arr, .work-card:focus-visible h2 .arr { opacity: 1; transform: none; }
-.work-card .reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease-out); }
-.work-card .reveal .inner { overflow: hidden; min-height: 0; display: grid; gap: 6px; justify-items: start; opacity: 0; transform: translateY(-6px); transition: opacity .3s, transform .45s var(--ease-out); }
-.work-card:hover .reveal, .work-card:focus-visible .reveal { grid-template-rows: 1fr; }
-.work-card:hover .reveal .inner, .work-card:focus-visible .reveal .inner { opacity: 1; transform: none; padding-top: 10px; }
-.work-card .reveal p { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 60ch; }
-.work-card .reveal .sep { margin: 0 4px; color: var(--faint); }
-.go { color: var(--accent); font-size: 15px; display: inline-flex; align-items: center; gap: 6px; }
-@media (hover: none) { .work-card .reveal { grid-template-rows: 1fr; } .work-card .reveal .inner { opacity: 1; transform: none; padding-top: 8px; } }
+/* ---------- project cards: Work tiles + featured folders on Home ----------
+ * .face holds the illustration, .sheet the real UI (video or still). .show-ui (js/project-cards.js)
+ * swaps them with a crossfade. */
+:root { --pcard-dur: 480ms; }
+.pcard { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s2); text-decoration: none; color: inherit; align-content: start; }
+.pcard:hover { color: inherit; }
+.pcard .ill { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r-md); }
+.pcard .face, .pcard .sheet { position: absolute; border-radius: var(--r-md); overflow: hidden; }
+.pcard .face { inset: 0; background: var(--paper); box-shadow: inset 0 0 0 1px var(--hairline); }
+.pcard .face canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pcard .sheet { background: var(--wash); }
+.pcard .sheet :is(img, video) { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.pcard .txt { display: grid; gap: 6px; }
+.pcard :is(h2, h3) { font-size: 30px; letter-spacing: -0.02em; line-height: 1.05; display: inline-flex; align-items: center; gap: 10px; }
+.pcard :is(h2, h3) .arr { display: inline-flex; color: var(--accent); font-size: 22px; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .45s var(--ease-out); }
+.pcard:is(:hover, :focus-visible, .show-ui) :is(h2, h3) .arr { opacity: 1; transform: none; }
+.pcard .cap { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 52ch; margin-top: 4px; }
+.pcard .role { font-size: 15px; color: var(--ink-2); }
+.pcard .role span { color: var(--muted); }
+.pcard .role span::after { content: " \2014"; }
+
+/* tile (Work): the UI crossfades in over the illustration */
+.work-grid > .pcard:first-child { grid-column: 1 / -1; }
+.work-grid > .pcard:first-child .ill { aspect-ratio: 2.3 / 1; }
+.pcard--tile .ill { overflow: hidden; box-shadow: inset 0 0 0 1px var(--hairline); }
+.pcard--tile .sheet { inset: 0; opacity: 0; transition: opacity var(--pcard-dur) var(--ease-out); }
+.pcard--tile .face { transition: opacity var(--pcard-dur) var(--ease-out); }
+.pcard--tile.show-ui .sheet { opacity: 1; }
+.pcard--tile.show-ui .face { opacity: 0; }
+/* dot transition (js/project-cards.js): the script fades the face, dots and media itself */
+.pcard--tile.dots .sheet { opacity: 1; transition: none; }
+.pcard--tile.dots .face { transition: none; }
+
+/* ---------- folder cards (Home) ----------
+ * A folder of real screenshots. The back panel has a tab; the lead screenshot stands up out of the
+ * folder; the front pocket (title) never moves. On hover the lead lifts a little and the other
+ * screenshots fan out behind it. Tuning: the --folder-* properties; ?card-lab on Home has dials. */
+:root { --folder-tab-h: 30px; --folder-logo-h: 13px; --folder-lead-rise: 6%; --folder-fan-x: 16%; --folder-fan-y: 36%; --folder-fan-tilt: 7deg; --folder-dur: 520ms; --folder-front: 40%; --folder-touch-delay: 500; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fcard { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); text-decoration: none; color: inherit; align-content: start; position: relative; }
+.fcard:hover { color: inherit; z-index: 2; }
+.folder { position: relative; display: block; aspect-ratio: 5 / 4; margin-top: calc(var(--s5) + 8px); }
+.folder .back { position: absolute; inset: 0; background: var(--wash); border-radius: 0 var(--r-md) var(--r-md) var(--r-md); box-shadow: inset 0 0 0 1px var(--hairline); }
+.folder .back::before { content: ""; position: absolute; left: 0; bottom: calc(100% - 1px); width: 40%; height: var(--folder-tab-h); background: var(--wash); border-radius: var(--r-md) var(--r-md) 0 0; box-shadow: inset 1px 1px 0 0 var(--hairline), inset -1px 0 0 0 var(--hairline); }
+/* company logo on the tab: the SVG is only a mask, so any logo comes out in one charcoal */
+.folder .tab-logo { position: absolute; left: 0; bottom: 100%; width: 40%; height: var(--folder-tab-h); padding: 0 14px; box-sizing: border-box; }
+.folder .tab-logo::after { content: ""; position: absolute; inset: 0 14px; background: var(--ink-2);
+  -webkit-mask: var(--logo) left center / auto var(--folder-logo-h) no-repeat; mask: var(--logo) left center / auto var(--folder-logo-h) no-repeat; }
+.folder .paper { position: absolute; left: 7%; right: 7%; top: 7%; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: var(--paper);
+  box-shadow: 0 0 0 1px var(--hairline), 0 14px 30px -18px rgba(17,17,17,.35);
+  transition: transform var(--folder-dur) var(--spring); transform-origin: 50% 100%; }
+.folder .paper img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+/* at rest the stack sits in the folder, just showing its edges */
+.folder .paper--1 { transform: translate(-2%, 1%) rotate(-2deg); }
+.folder .paper--2 { transform: translate(2%, 2%) rotate(2deg); }
+.folder .paper--lead { transform: translateY(-4%); }
+.folder .front { position: absolute; left: 0; right: 0; bottom: 0; height: var(--folder-front); background: var(--paper); border-radius: var(--r-md);
+  box-shadow: inset 0 0 0 1px var(--hairline), 0 -12px 28px -20px rgba(17,17,17,.35);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: var(--s3); gap: 4px; }
+.front-title { font-family: var(--display); font-weight: 650; font-size: clamp(24px, 2.3vw, 32px); letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
+.front-meta { font-size: 15px; color: var(--muted); }
+.fcard:is(:hover, :focus-visible, .open) .paper--lead { transform: translateY(calc(-4% - var(--folder-lead-rise))); }
+.fcard:is(:hover, :focus-visible, .open) .paper--1 { transform: translate(calc(-1 * var(--folder-fan-x)), calc(-1 * var(--folder-fan-y))) rotate(calc(-1 * var(--folder-fan-tilt))); }
+.fcard:is(:hover, :focus-visible, .open) .paper--2 { transform: translate(var(--folder-fan-x), calc(-.7 * var(--folder-fan-y))) rotate(var(--folder-fan-tilt)); transition-delay: 40ms; }
+.fcard .txt { gap: 4px; }
+.fcard .cap { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 52ch; }
+.fcard .role { font-size: 15px; color: var(--ink-2); }
+.fcard .role span { color: var(--muted); }
+.fcard .role span::after { content: " \2014"; }
+@media (prefers-reduced-motion: reduce) { .folder .paper { transition: none; } }
+
+/* featured on Home */
+.featured { padding: var(--s7) 0 var(--s8); }
+.featured-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); max-width: none; flex-wrap: wrap; }
+.featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6) var(--s5); }
 
 /* ---------- case study ---------- */
 .cs-head { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--s4) var(--s5); padding-top: calc(var(--s8) + var(--s2)); align-items: end; }
@@ -350,7 +408,8 @@ p { margin: 0; text-wrap: pretty; }
   .rec-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s6); }
   .rec-col { gap: var(--s6); }
   .work-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s6); }
-  .work-card:first-child .ill { aspect-ratio: 4 / 3; }
+  .work-grid > .pcard:first-child .ill { aspect-ratio: 4 / 3; }
+  .featured-grid { grid-template-columns: minmax(0, 1fr); }
   .cs-head { grid-template-columns: minmax(0, 1fr); }
   .meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cs-section { grid-template-columns: minmax(0, 1fr); gap: var(--s2); }

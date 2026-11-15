@@ -12,8 +12,10 @@
  * Video          the sizzle reel plays muted while on screen; click for sound
  * Settle         case study hero screenshot scales 1.04 → 1 as it scrolls in
  * Copy           the email button copies and confirms in place
+ * Project cards  illustration plays once in view, real UI on hover (js/project-cards.js)
  * ───────────────────────────────────────────────────────── */
 import { mountIllustrations, mountGlyphs } from './illustrations.js';
+import { mountProjectCards, mountFolders } from './project-cards.js';
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = matchMedia('(hover: none)').matches;
@@ -52,6 +54,8 @@ document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 /* ---------- illustrations ---------- */
 mountIllustrations();
 mountGlyphs();
+mountProjectCards();
+mountFolders();
 
 /* ---------- recommendations ---------- */
 const recs = [...document.querySelectorAll('.rec')];

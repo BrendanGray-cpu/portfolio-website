@@ -4,7 +4,7 @@ note: Verbatim from LinkedIn, September 2026. Pull quotes are exact sentences fr
 ---
 
 ## Ken Kirkland
-title: User Experience Leader
+title: Director of Product Design
 company: BambooHR
 relation: Managed me directly at BambooHR
 pull: Brendan is an exceptional product designer who combines strong design craft with deep research, thoughtful problem-solving, and a high degree of ownership.
