@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contract Sign-up, Brendan Gray</title>
+<meta name="description" content="The sales-assisted path to buying BambooHR. A prospect reviews the order, signs the terms, adds payment and starts their subscription.">
+<meta property="og:title" content="Contract Sign-up, Brendan Gray">
+<meta property="og:description" content="The sales-assisted path to buying BambooHR. A prospect reviews the order, signs the terms, adds payment and starts their subscription.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..800&family=Instrument+Sans:wght@400..600&display=swap">
+<link rel="stylesheet" href="/css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Main">
+  <a href="/">Home</a>
+  <a href="/work.html" aria-current="page">Work</a><a href="/fun-zone.html">Fun Zone</a><a href="/about.html">About</a>
+  <span class="nav-dot" aria-hidden="true"></span>
+</nav>
+<main id="main">
+
+<div class="page">
+  <header class="cs-head">
+    <div class="cs-title">
+      <h1 data-reveal>Contract Sign-up</h1>
+      <p class="hook" data-reveal style="--i:1">The sales-assisted path to buying BambooHR. A prospect reviews the order, signs the terms, adds payment and starts their subscription.</p>
+      <div class="cs-actions" data-reveal style="--i:2"><a class="btn" href="https://billing-checkout-v2.vercel.app/" target="_blank" rel="noopener">Try the prototype <svg class="ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></div>
+    </div>
+    <div class="cs-ill" data-card data-autoplay data-reveal style="--i:2"><canvas data-illustration="contract" aria-hidden="true"></canvas></div>
+    <dl class="meta" data-reveal style="--i:3">
+      <div><dt>Company</dt><dd>BambooHR</dd></div>
+      <div><dt>Role</dt><dd>Product Designer, sole designer on the initiative</dd></div>
+      <div><dt>Team</dt><dd>PM, design and engineering trio</dd></div>
+      <div><dt>Timeline</dt><dd class="num">About 11 months, to February 2026</dd></div>
+      <div><dt>Status</dt><dd>Shipped</dd></div>
+    </dl>
+  </header>
+  <figure class="shot settle clip-hero" data-reveal><video src="/assets/video/contract-signer.mp4" poster="/assets/video/contract-signer.jpg" muted loop playsinline preload="auto" aria-label="In BambooHR&#x27;s account settings, the signer copies a payment link for finance, then reviews the order form and accepts the terms."></video></figure>
+  <article class="cs-body">
+    <section class="cs-section" id="problem">
+      <h2 class="label">Problem</h2>
+      <div class="text" data-reveal><p>Starting a subscription happened mostly outside the product. A prospect added payment through an outside link, and a sales rep started the subscription for them.</p>
+<p>Legal had no in-app record of who accepted the terms or when, which made disputes and audits hard. BambooHR also offered no contracts, so every customer was month-to-month.</p></div>
+    </section>
+    <section class="cs-section" id="constraints">
+      <h2 class="label">Constraints</h2>
+      <div class="text" data-reveal><p>The person who signs is rarely the person who holds the company card. That second person is often a founder or finance lead with no BambooHR login who didn’t want to make one.</p>
+<p>Payment had to work by card, ACH, wire or check, and each step could happen inside or outside the app.</p></div>
+    </section>
+    <section class="cs-section" id="decision">
+      <h2 class="label">Decision</h2>
+      <div class="text" data-reveal><p>We built a shareable payment link. The signer sends it over Slack, and the finance person adds payment info in their browser without an account. If the signer has the payment info, they can go through the flow themselves without leaving the app. When both steps are done, the subscription starts.</p>
+<figure class="clip narrow" data-reveal><div class="clip-frame"><video src="/assets/video/contract-payer.mp4" poster="/assets/video/contract-payer.jpg" muted loop playsinline preload="metadata" aria-label="Finance opens the link in a browser and adds a card, with no BambooHR account"></video></div><figcaption>Finance opens the link in a browser and adds a card, with no BambooHR account</figcaption></figure>
+<figure class="clip wide" data-reveal><div class="clip-frame"><video src="/assets/video/contract-inapp.mp4" poster="/assets/video/contract-inapp.jpg" muted loop playsinline preload="metadata" aria-label="When the signer has the card, they add it in the app without leaving the flow"></video></div><figcaption>When the signer has the card, they add it in the app without leaving the flow</figcaption></figure>
+<p>An earlier version opened on a wall of legal text beside a PDF preview. I made the order form the first thing you see, with the actions on the right once you’ve reviewed it.</p></div>
+    </section>
+    <section class="cs-section" id="outcome">
+      <h2 class="label">Outcome</h2>
+      <div class="text" data-reveal><p>It shipped. Every new customer now signs up through this flow, and by the time I left a third were choosing an extended-term contract.</p>
+<p>Customers on contracts churned at a fraction of the month-to-month rate, and every acceptance is now on record.</p></div>
+    </section>
+    <section class="cs-section" id="reflection">
+      <h2 class="label">Reflection</h2>
+      <div class="text" data-reveal><p>The initiative ran close to a year, and new edge cases kept arriving from billing, legal and sales. Next time I’d collect use cases from every stakeholder up front, before the first iteration.</p></div>
+    </section>
+  </article>
+  <section class="cs-end" data-reveal><p>See it for yourself. The prototype I built and tested is still live.</p><a class="btn" href="https://billing-checkout-v2.vercel.app/" target="_blank" rel="noopener">Try the prototype <svg class="ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></section>
+  <nav class="next" aria-label="More projects">
+    <a href="/work/trial-experience.html" data-card><div class="mini"><canvas data-illustration="trial" aria-hidden="true"></canvas></div><div><span class="dir">Previous</span><h3>Trial Experience</h3></div></a>
+    <a class="fwd" href="/work/supplier-experience.html" data-card><div><span class="dir">Next</span><h3>Supplier Experience</h3></div><div class="mini"><canvas data-illustration="supplier" aria-hidden="true"></canvas></div></a>
+  </nav>
+</div>
+</main>
+<div class="page"><footer class="footer">
+  <span>Brendan Gray, product designer in Salt Lake City</span>
+  <nav aria-label="Elsewhere"><a href="mailto:graybrendan15@gmail.com">Email</a><a href="https://www.linkedin.com/in/brendansgray/" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/its_grayscale" target="_blank" rel="noopener">X</a><a href="/assets/Brendan-Gray-Resume.pdf" target="_blank" rel="noopener">Resume</a></nav>
+</footer></div>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }</script>
+<script type="module" src="/js/site.js"></script>
+
+</body>
+</html>

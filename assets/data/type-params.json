@@ -1,0 +1,73 @@
+{
+  "hint": "none",
+  "speed": 1,
+  "pick": {
+    "builder": "toolbelt",
+    "designer": "selection",
+    "graphic": "misreg",
+    "pm": "ticket",
+    "code": "source",
+    "grow": "curve",
+    "scale": "resize",
+    "obvious": "annotate",
+    "ai": "ghost",
+    "learn": "progress",
+    "explore": "wander"
+  },
+  "toolbelt": {
+    "gap": 36,
+    "iconSize": 1,
+    "offsetY": 34,
+    "arc": 40,
+    "stagger": 40,
+    "pad": 22,
+    "inDur": 450,
+    "outDur": 320
+  },
+  "selection": {
+    "label": "Role",
+    "pad": 4,
+    "showSize": true
+  },
+  "misreg": {
+    "offset": 3,
+    "marks": 10
+  },
+  "ticket": {
+    "key": "PROD-142",
+    "title": "Product management",
+    "doneAt": 420,
+    "width": 280,
+    "offsetY": 12,
+    "inDur": 380,
+    "outDur": 180
+  },
+  "curve": {
+    "rise": 0.32,
+    "grow": 0.22,
+    "stagger": 50
+  },
+  "resize": {
+    "scale": 1.32,
+    "dim": true
+  },
+  "annotate": {
+    "weight": 2,
+    "pad": 16,
+    "arrow": 70,
+    "drawDur": 450
+  },
+  "ghost": {
+    "text": "-assisted, human-reviewed"
+  },
+  "progress": {
+    "fillDur": 700,
+    "thickness": 4,
+    "label": "✓ learned",
+    "gap": 12
+  },
+  "wander": {
+    "duration": 2200,
+    "reach": 1
+  }
+}

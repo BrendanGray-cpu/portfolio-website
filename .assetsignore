@@ -4,7 +4,11 @@
 .assetsignore
 .wrangler
 wrangler.jsonc
-vercel.json
 README.md
+CRAFT.md
 node_modules
 .DS_Store
+content
+tools
+run.sh
+serve.py

@@ -5,7 +5,8 @@
   "observability": { "enabled": true },
   "assets": {
     "directory": ".",
-    "not_found_handling": "single-page-application",
+    // multi-page static site: /about serves about.html; unknown paths get the 404
+    "not_found_handling": "none",
     "html_handling": "auto-trailing-slash"
   }
 }

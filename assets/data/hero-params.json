@@ -1,0 +1,172 @@
+{
+  "stage": "excited",
+  "view": {
+    "introOnLoad": true,
+    "restYaw": -18,
+    "restPitch": 4,
+    "dragYaw": 25,
+    "dragPitch": 10,
+    "returnToRest": true,
+    "returnDelay": 2.5,
+    "swayYaw": 4,
+    "swayPitch": 2,
+    "swayRoll": 1,
+    "bob": 0.015,
+    "swaySpeed": 0.08,
+    "wheelZoom": false
+  },
+  "look": {
+    "points": 193000,
+    "size": 2,
+    "dot": "#323232",
+    "accent": "#2f5bff",
+    "background": "#ffffff",
+    "texture": 1,
+    "shade": 0.83,
+    "depthFade": 0.3,
+    "opacity": 1
+  },
+  "camera": {
+    "distance": 5.9,
+    "fov": 29,
+    "offsetX": 0,
+    "offsetY": -0.02,
+    "crop": -1.21
+  },
+  "swirl": {
+    "radius": 0.29,
+    "strength": 1.9,
+    "curl": 0.66,
+    "drag": 0.45,
+    "push": 0.15,
+    "depth": 0.35,
+    "sequence": "full arc",
+    "loop": true
+  },
+  "reform": {
+    "stiffness": 0.07,
+    "damping": 0.2,
+    "poseStiffness": 0.08,
+    "poseDamping": 0.4
+  },
+  "expression": {
+    "depthScale": 0.5,
+    "excited": 0.95,
+    "struggle": 0.85,
+    "breakthrough": 0.7,
+    "proud": 1.1,
+    "gains": {
+      "brows": 1.8,
+      "eyes": 1.4,
+      "mouth": 1.45,
+      "jaw": 1.6,
+      "rest": 1
+    },
+    "puff": 0.075,
+    "puffSide": "left",
+    "puffRadius": 0.12
+  },
+  "pose": {
+    "excited": {
+      "pitch": -3,
+      "yaw": 0,
+      "roll": 0,
+      "forward": 0.12
+    },
+    "struggle": {
+      "pitch": -12,
+      "yaw": 0,
+      "roll": 7,
+      "forward": 0
+    },
+    "breakthrough": {
+      "pitch": 3,
+      "yaw": -2,
+      "roll": 0,
+      "forward": 0.03
+    },
+    "proud": {
+      "pitch": 10,
+      "yaw": -4,
+      "roll": 0,
+      "forward": 0
+    },
+    "neckBend": 0.6
+  },
+  "readability": {
+    "levels": {
+      "black": 0.45,
+      "white": 0.55,
+      "gamma": 1
+    },
+    "features": {
+      "eyes": 0.58,
+      "brows": 0.61,
+      "mouth": 0,
+      "beard": 0,
+      "hair": 0,
+      "notSkin": 0,
+      "lids": 0.89
+    },
+    "size": {
+      "byDepth": 1.8,
+      "depthRange": 0.5,
+      "byInk": 1.4
+    },
+    "rim": 0,
+    "thinSkin": 0,
+    "evenTone": 0.6
+  },
+  "eyes": {
+    "excited": {
+      "up": 0.05,
+      "down": 0.014,
+      "dark": 1
+    },
+    "struggle": {
+      "up": 0.02,
+      "down": 0.014,
+      "dark": 1
+    },
+    "breakthrough": {
+      "up": 0.046,
+      "down": 0.03,
+      "dark": 1
+    },
+    "proud": {
+      "up": 0.04,
+      "down": 0.016,
+      "dark": 1
+    },
+    "width": 1,
+    "softness": 0.35,
+    "clearAround": 0.7
+  },
+  "mood": {
+    "show": true,
+    "fill": "#2f5bff",
+    "threshold": 6,
+    "floatTime": 1.5,
+    "drift": 0.4,
+    "returnRamp": 0.4,
+    "glyphs": "symbols",
+    "decode": 500,
+    "nameTag": false,
+    "eyebrow": ""
+  },
+  "follow": {
+    "enabled": false,
+    "amount": 8
+  },
+  "grid": {
+    "show": true,
+    "color": "#9a978f",
+    "extent": 1.1,
+    "step": 0.25,
+    "labels": true
+  },
+  "overlay": {
+    "selection": false,
+    "coords": true
+  }
+}

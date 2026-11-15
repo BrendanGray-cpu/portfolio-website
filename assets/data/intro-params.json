@@ -1,0 +1,55 @@
+{
+  "speed": 1,
+  "overlap": 80,
+  "stages": {
+    "brief": {
+      "on": true,
+      "dur": 1000
+    },
+    "sketch": {
+      "on": true,
+      "dur": 2000
+    },
+    "wireframe": {
+      "on": true,
+      "dur": 800
+    },
+    "design": {
+      "on": true,
+      "dur": 1200
+    },
+    "code": {
+      "on": true,
+      "dur": 900
+    },
+    "live": {
+      "on": true,
+      "dur": 700
+    }
+  },
+  "look": {
+    "scans": true,
+    "ink": "#111111",
+    "accent": "#2f5bff",
+    "guide": "#2f5bff",
+    "weight": 1.5,
+    "detail": 0.4,
+    "wobble": 9,
+    "grid": true,
+    "gridAlpha": 0.22,
+    "boxModelAlpha": 0.16,
+    "columnAlpha": 0.05
+  },
+  "copy": {
+    "you": "Brendan",
+    "other": "PM",
+    "otherColor": "#8a8a86",
+    "briefTitle": "The brief",
+    "comment": "Bigger name?",
+    "commentDone": "✓ Resolved",
+    "autoLayout": "Auto layout",
+    "command": "npm run build",
+    "building": "building…",
+    "done": "✓ deployed"
+  }
+}
