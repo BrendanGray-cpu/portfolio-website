@@ -165,9 +165,6 @@ p { margin: 0; text-wrap: pretty; }
 .pcard--tile .face { transition: opacity var(--pcard-dur) var(--ease-out); }
 .pcard--tile.show-ui .sheet { opacity: 1; }
 .pcard--tile.show-ui .face { opacity: 0; }
-/* dot transition (js/project-cards.js): the script fades the face, dots and media itself */
-.pcard--tile.dots .sheet { opacity: 1; transition: none; }
-.pcard--tile.dots .face { transition: none; }
 
 /* ---------- folder cards (Home) ----------
  * A folder of real screenshots. The back panel has a tab; the lead screenshot stands up out of the
