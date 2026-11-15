@@ -462,10 +462,6 @@ about = f'''
       <a class="btn" href="{SITE['resume']}" download="Brendan-Gray-Resume.pdf" data-reveal>Download resume <svg class="ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v6M3.5 5.5L6 8l2.5-2.5M2.5 10h7"/></svg></a>
     </div>
   </section>
-  <section class="how" aria-labelledby="how-title">
-    <h2 id="how-title" class="section-title" data-reveal>How I work</h2>
-    <div class="how-grid">{how}</div>
-  </section>
   <section class="facts">
     <div data-reveal><h2 class="section-title">Experience</h2><dl class="xp">{xp}</dl></div>
     <div data-reveal style="--i:1"><h2 class="section-title">Skills</h2><ul class="chips">{''.join(f'<li>{E(s)}</li>' for s in SKILLS)}</ul>
