@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checkout, Brendan Gray</title>
+<meta name="description" content="A self-service way for small companies to buy BambooHR without a sales call.">
+<meta property="og:title" content="Checkout, Brendan Gray">
+<meta property="og:description" content="A self-service way for small companies to buy BambooHR without a sales call.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..800&family=Instrument+Sans:wght@400..600&display=swap">
+<link rel="stylesheet" href="/css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+<meta name="robots" content="noindex">
+<script src="https://inflight.co/widget.js" data-org="aius9qpt" data-path="/dive" async></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Main">
+  <a href="/dive/">Home</a>
+  <a href="/dive/work.html" aria-current="page">Work</a><a href="/dive/fun-zone.html">Fun Zone</a><a href="/dive/about.html">About</a>
+  <span class="nav-dot" aria-hidden="true"></span>
+</nav>
+<main id="main">
+
+<div class="page">
+  <header class="cs-head">
+    <div class="cs-title">
+      <h1 data-reveal>Checkout</h1>
+      <p class="hook" data-reveal style="--i:1">A self-service way for small companies to buy BambooHR without a sales call.</p>
+      <div class="cs-actions" data-reveal style="--i:2"><a class="btn" href="https://trial-checkout-real.vercel.app/" target="_blank" rel="noopener">Try the prototype <svg class="ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></div>
+    </div>
+    <div class="cs-ill" data-card data-autoplay data-reveal style="--i:2"><canvas data-illustration="checkout" aria-hidden="true"></canvas></div>
+    <dl class="meta" data-reveal style="--i:3">
+      <div><dt>Company</dt><dd>BambooHR</dd></div>
+      <div><dt>Role</dt><dd>Lead Product Designer, design and usability owner</dd></div>
+      <div><dt>Team</dt><dd>PM, design and engineering trio</dd></div>
+      <div><dt>Timeline</dt><dd class="num">About three months</dd></div>
+      <div><dt>Status</dt><dd>Didn&#x27;t ship while I was there</dd></div>
+    </dl>
+  </header>
+  <figure class="shot settle clip-hero" data-reveal><video src="/assets/video/checkout-stepped.mp4" poster="/assets/video/checkout-stepped.jpg" muted loop playsinline preload="auto" aria-label="The stepped checkout from plan to payment: picking a package, adding company details, agreeing to the order form, paying, and landing on the purchase confirmation."></video></figure>
+  <article class="cs-body">
+    <section class="cs-section" id="problem">
+      <h2 class="label">Problem</h2>
+      <div class="text" data-reveal><p>Buying HR software usually means a sales call, because pricing is gated behind a quote from sales. Our PM’s research found a real share of prospects who wouldn’t talk to sales at all, and more who were reluctant.</p>
+<p>Each one was a company that might have bought BambooHR and didn’t. We scoped the first version to U.S. companies under 25 employees buying the simplest packages.</p></div>
+    </section>
+    <section class="cs-section" id="constraints">
+      <h2 class="label">Constraints</h2>
+      <div class="text" data-reveal><p>A self-service purchase touches nearly every team. Implementation needed a clean handoff into onboarding, sales needed to know how it affected commission, and legal required the buyer to accept the terms and a generated order form.</p>
+<p>BambooHR doesn’t process payments, so the payment processor had to sit inside the flow in an iframe.</p></div>
+    </section>
+    <section class="cs-section" id="decision">
+      <h2 class="label">Decision</h2>
+      <div class="text" data-reveal><p>The company was pushing AI chat, so I built and tested a version where buyers assemble their order by talking to a chat. It tested poorly.</p>
+<figure class="clip wide" data-reveal><div class="clip-frame"><video src="/assets/video/checkout-chat.mp4" poster="/assets/video/checkout-chat.jpg" muted loop playsinline preload="metadata" aria-label="The chat version: the order builds on the left as the buyer answers on the right"></video></div><figcaption>The chat version: the order builds on the left as the buyer answers on the right</figcaption></figure>
+<p>Checkout is one of the most familiar patterns on the web, and changing it adds risk at the moment someone decides to spend money. I recommended a traditional stepped checkout with clear sections and familiar fields.</p></div>
+    </section>
+    <section class="cs-section" id="outcome">
+      <h2 class="label">Outcome</h2>
+      <div class="text" data-reveal><p>Implementation, sales, billing and legal all approved the design, and engineering had started building it. It didn’t ship before my role ended, so I have no conversion numbers to show.</p></div>
+    </section>
+    <section class="cs-section" id="reflection">
+      <h2 class="label">Reflection</h2>
+      <div class="text" data-reveal><p>In testing, buyers sorted themselves by how much risk they felt more than by company size, which matched what the HRIS study found. Some wanted to buy on their own, and many wanted reassurance. I learned to keep testing the premise even after the direction feels set.</p></div>
+    </section>
+  </article>
+  <section class="cs-end" data-reveal><p>See it for yourself. The prototype I built and tested is still live.</p><a class="btn" href="https://trial-checkout-real.vercel.app/" target="_blank" rel="noopener">Try the prototype <svg class="ico" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></section>
+  <nav class="next" aria-label="More projects">
+    <a href="/dive/work/hris-buying-study.html" data-card><div class="mini"><canvas data-illustration="hris" aria-hidden="true"></canvas></div><div><span class="dir">Previous</span><h3>HRIS Buying Study</h3></div></a>
+    <a class="fwd" href="/dive/work/trial-experience.html" data-card><div><span class="dir">Next</span><h3>Trial Experience</h3></div><div class="mini"><canvas data-illustration="trial" aria-hidden="true"></canvas></div></a>
+  </nav>
+</div>
+</main>
+<div class="page"><footer class="footer">
+  <span>Brendan Gray, product designer in Salt Lake City</span>
+  <nav aria-label="Elsewhere"><a href="mailto:graybrendan15@gmail.com">Email</a><a href="https://www.linkedin.com/in/brendansgray/" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/its_grayscale" target="_blank" rel="noopener">X</a><a href="/assets/Brendan-Gray-Resume.pdf" target="_blank" rel="noopener">Resume</a></nav>
+</footer></div>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }</script>
+<script type="module" src="/js/site.js"></script>
+
+</body>
+</html>

@@ -168,6 +168,23 @@ def write(rel, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     open(path, 'w', encoding='utf-8').write(text)
     print('wrote', rel)
+    if rel.endswith('.html') and not rel.startswith(DIVE + '/'):
+        write(f'{DIVE}/{rel}', review_copy(text))
+
+
+# ---------- /dive: a review-only copy of every page, for Dive Club ----------
+# Same pages, plus noindex and the Inflight review widget in the initial <head> (scoped to /dive by
+# data-path). Links between pages stay inside /dive; assets and external links are untouched.
+# Nothing on the public pages links here, and there's no sitemap to leave it out of.
+DIVE = 'dive'
+DIVE_HEAD = ('<meta name="robots" content="noindex">\n'
+             '<script src="https://inflight.co/widget.js" data-org="aius9qpt" data-path="/dive" async></script>\n')
+PAGE_LINK = re.compile(r'href="/(|work\.html|work/[^"]+\.html|about\.html|fun-zone\.html)"')
+
+
+def review_copy(text):
+    text = text.replace('</head>', DIVE_HEAD + '</head>', 1)
+    return PAGE_LINK.sub(lambda m: f'href="/{DIVE}/{m.group(1)}"', text)
 
 
 def initials(name):
