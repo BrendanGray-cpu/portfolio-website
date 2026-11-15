@@ -152,8 +152,8 @@ p { margin: 0; text-wrap: pretty; }
 .pcard :is(h2, h3) { font-size: 30px; letter-spacing: -0.02em; line-height: 1.05; display: inline-flex; align-items: center; gap: 10px; }
 .pcard :is(h2, h3) .arr { display: inline-flex; color: var(--accent); font-size: 22px; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .45s var(--ease-out); }
 .pcard:is(:hover, :focus-visible, .show-ui) :is(h2, h3) .arr { opacity: 1; transform: none; }
-.pcard .cap { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 52ch; margin-top: 4px; }
-.pcard .role { font-size: 15px; color: var(--ink-2); }
+.pcard .cap { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 52ch; margin-top: 4px; text-wrap: balance; }
+.pcard .role { font-size: 15px; color: var(--ink-2); margin-top: 4px; }
 .pcard .role span { color: var(--muted); }
 .pcard .role span::after { content: " \2014"; }
 
@@ -194,15 +194,15 @@ p { margin: 0; text-wrap: pretty; }
 .folder .paper--lead { transform: translateY(-4%); }
 .folder .front { position: absolute; left: 0; right: 0; bottom: 0; height: var(--folder-front); background: var(--paper); border-radius: var(--r-md);
   box-shadow: inset 0 0 0 1px var(--hairline), 0 -12px 28px -20px rgba(17,17,17,.35);
-  display: flex; flex-direction: column; justify-content: flex-end; padding: var(--s3); gap: 4px; }
+  display: flex; flex-direction: column; justify-content: center; padding: var(--s3); gap: 4px; }
 .front-title { font-family: var(--display); font-weight: 650; font-size: clamp(24px, 2.3vw, 32px); letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); display: inline-flex; align-items: center; gap: 10px; }
 .front-meta { font-size: 15px; color: var(--muted); }
 .fcard:is(:hover, :focus-visible, .open) .paper--lead { transform: translateY(calc(-4% - var(--folder-lead-rise))); }
 .fcard:is(:hover, :focus-visible, .open) .paper--1 { transform: translate(calc(-1 * var(--folder-fan-x)), calc(-1 * var(--folder-fan-y))) rotate(calc(-1 * var(--folder-fan-tilt))); }
 .fcard:is(:hover, :focus-visible, .open) .paper--2 { transform: translate(var(--folder-fan-x), calc(-.7 * var(--folder-fan-y))) rotate(var(--folder-fan-tilt)); transition-delay: 40ms; }
 .fcard .txt { gap: 4px; }
-.fcard .cap { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 52ch; }
-.fcard .role { font-size: 15px; color: var(--ink-2); }
+.fcard .cap { color: var(--muted); font-size: 17px; line-height: 1.5; max-width: 52ch; text-wrap: balance; }
+.fcard .role { font-size: 15px; color: var(--ink-2); margin-top: 6px; }
 .fcard .role span { color: var(--muted); }
 .fcard .role span::after { content: " \2014"; }
 @media (prefers-reduced-motion: reduce) { .folder .paper { transition: none; } }

@@ -217,12 +217,19 @@ def card_sheet(p):
     return f'<div class="sheet" aria-hidden="true"><img src="/assets/img/{m}" alt="" loading="lazy" decoding="async"></div>'
 
 
-def card_text(p, tag, title=True):
+def no_orphan(text):
+    """Join the last two words with a non-breaking space, so a caption never ends on one word alone."""
+    head, sep, last = text.rpartition(' ')
+    return f'{head}&nbsp;{last}' if sep and '<' not in last else text
+
+
+def card_text(p, tag, title=True, company=True):
     head = f'<{tag}>{E(p["title"])} <span class="arr" aria-hidden="true">{ARROW_R}</span></{tag}>' if title else ''
+    co = f', {E(p["company"])}' if company else ''
     return f'''<div class="txt">
       {head}
-      <p class="cap">{inline(p['caption'])}</p>
-      <p class="role"><span>Role</span> {E(p['role'].split(',')[0])}, {E(p['company'])}</p>
+      <p class="cap">{no_orphan(inline(p['caption']))}</p>
+      <p class="role"><span>Role</span> {E(p['role'].split(',')[0])}{co}</p>
     </div>'''
 
 
@@ -240,7 +247,8 @@ LOGOS = {'BambooHR': 'bamboohr.svg', 'Graphite Connect': 'graphite-connect.svg'}
 
 def folder_card(p, i):
     """Home: a folder of real screenshots. The first one stands up out of the folder; hover (or, on
-    touch, scrolling it into view) fans the others out. The front pocket holds the title and never moves."""
+    touch, scrolling it into view) fans the others out. The front pocket holds the title and never moves.
+    The company is the logo on the tab only (and the hidden heading, for screen readers)."""
     shots = [s.strip() for s in p['folder'].split('|')]
     lead, rest = shots[0], shots[1:]
     papers = ''.join(f'<span class="paper paper--{k + 1}"><img src="/assets/{E(s)}" alt="" loading="lazy" decoding="async"></span>' for k, s in reversed(list(enumerate(rest))))
@@ -249,10 +257,10 @@ def folder_card(p, i):
     <div class="folder" aria-hidden="true">
       <span class="back"></span>{f'<span class="tab-logo" style="--logo:url(/assets/img/logos/{LOGOS[p["company"]]})"></span>' if p['company'] in LOGOS else ''}
       {papers}
-      <span class="front"><span class="front-title">{E(p['title'])}</span><span class="front-meta">{E(p['company'])}</span></span>
+      <span class="front"><span class="front-title">{E(p['title'])}</span></span>
     </div>
-    <h3 class="sr-only">{E(p['title'])}</h3>
-    {card_text(p, 'h3', title=False)}
+    <h3 class="sr-only">{E(p['title'])}, {E(p['company'])}</h3>
+    {card_text(p, 'h3', title=False, company=False)}
   </a>'''
 
 
