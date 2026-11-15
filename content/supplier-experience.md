@@ -9,9 +9,9 @@ company: Graphite Connect
 status: Shipped
 role: Designer, sole designer on the supplier experience
 team: Product team of three
-timeline: Aug 2023 – Oct 2025
+timeline: Jan 2023 – Oct 2025
 caption: Seven projects for the suppliers a procurement platform wasn't built for.
-hook: Graphite Connect was built for the buyers who pay for it. I spent two years designing for the suppliers they bring with them.
+hook: Graphite Connect was built for the buyers who pay for it. I spent over two years designing for the suppliers they bring with them.
 hero: previews/supplier-experience.webp
 projects_range: 2023-01 | 2024-12
 projects: Contact Center | 2023-01 | 2023-06 | 1 | key ; Attachment drawers | 2023-10 | 2024-03 | 1 ; Visual workflow | 2024-05 | 2024-07 | 1 | key ; Accessibility improvements | 2023-04 | now | 2 | key ; Supplier user testing | 2023-01 | 2023-02 | 3 ; Supplier satisfaction survey | 2024-01 | 2024-08 | 3 ; Connection overview: certify and submit answers | 2023-02 | 2023-03 | 4
@@ -30,7 +30,7 @@ Suppliers ranged from one-person shops to enterprises, in every industry and at 
 Before designing anything, I had to make the case to leadership. I tied the work to metrics that were already being tracked: support load and customer relationships.
 
 ## Decision
-I ran it as one initiative of seven projects over about two years. Three of them had the most impact.
+I ran it as one initiative of seven projects over more than two years. Three of them had the most impact.
 
 The Contact Center turned a static list of names into a directory buyers can import, so suppliers see who to contact and who holds which permissions.
 
