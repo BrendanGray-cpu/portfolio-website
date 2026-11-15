@@ -239,7 +239,7 @@ home = f'''
   {recs_html}
 </div>'''
 write('index.html', page('Brendan Gray, product builder', 'Brendan Gray is a product designer who builds: B2B product design, research, and prototypes in code.', home, active='/',
-                         scripts='<script type="module" src="/js/intro.js"></script><script type="module" src="/js/head.js"></script><script type="module" src="/js/rec-dials.js"></script><script type="module" src="/js/intro-lab.js"></script><script type="module" src="/js/type-play.js"></script><script type="module" src="/js/type-lab.js"></script>',
+                         scripts='<script type="module" src="/js/intro.js"></script><script type="module" src="/js/head.js"></script><script type="module" src="/js/rec-dials.js"></script><script type="module" src="/js/hero-dials.js"></script><script type="module" src="/js/intro-lab.js"></script><script type="module" src="/js/type-play.js"></script><script type="module" src="/js/type-lab.js"></script>',
                          head_extra=INTRO_HOLD))
 
 

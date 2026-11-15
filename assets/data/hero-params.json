@@ -27,10 +27,10 @@
     "opacity": 1
   },
   "camera": {
-    "distance": 5.9,
+    "distance": 6.75,
     "fov": 29,
     "offsetX": 0,
-    "offsetY": -0.02,
+    "offsetY": -0.19,
     "crop": -1.21
   },
   "swirl": {
