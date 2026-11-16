@@ -163,7 +163,28 @@ def page(title, desc, body, active='', scripts='', head_extra=''):
 '''
 
 
+# ---------- link previews (X, LinkedIn, Slack, iMessage) ----------
+# Every page shares one image: the landed Home hero (name, role, first intro paragraph, the head),
+# rendered at 1200x630. To re-render it, see assets/og/README.md.
+ORIGIN = 'https://brendangraydesign.com'
+OG_IMAGE = '/assets/og/home.jpg'
+
+
+def og_tags(rel):
+    path = '/' if rel == 'index.html' else '/' + rel[:-5]   # Cloudflare serves /work for work.html
+    return (f'<meta property="og:type" content="website">\n'
+            f'<meta property="og:site_name" content="Brendan Gray">\n'
+            f'<meta property="og:url" content="{ORIGIN}{path}">\n'
+            f'<meta property="og:image" content="{ORIGIN}{OG_IMAGE}">\n'
+            f'<meta property="og:image:width" content="1200">\n'
+            f'<meta property="og:image:height" content="630">\n'
+            f'<meta property="og:image:alt" content="Brendan Gray, product builder, beside a 3D point cloud of his head">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n')
+
+
 def write(rel, text):
+    if rel.endswith('.html') and not rel.startswith(DIVE + '/'):
+        text = text.replace('<meta name="theme-color"', og_tags(rel) + '<meta name="theme-color"', 1)
     path = os.path.join(ROOT, rel)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     open(path, 'w', encoding='utf-8').write(text)
