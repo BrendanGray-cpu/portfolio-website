@@ -36,7 +36,9 @@ The Contact Center turned a static list of names into a directory buyers can imp
 
 [compare supplier/contact-center-before.webp | supplier/contact-center-after.webp | Contact Center, before and after]
 
-After feedback from low-vision users, I audited the product for accessibility, met with disabled users and taught the team WCAG 2.2. Wireframes, tickets and QA now check accessibility before every release.
+After feedback from low-vision users, I audited the product for accessibility, met with disabled users and taught the team WCAG 2.2. The audit led me to rebuild our Figma component library to be accessible first. Wireframes, tickets and QA now check accessibility before every release.
+
+[image supplier/component-library.webp | Components from the rebuilt, accessible-first library]
 
 The visual workflow now opens a task drawer when you click an item, because suppliers expected items to be clickable. Stage titles show descriptions each buyer can write for their own suppliers.
 
