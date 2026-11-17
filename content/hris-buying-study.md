@@ -11,6 +11,7 @@ caption: 12 interviews on how people buy HR software.
 hook: Where a free trial fits in how people buy HR software, from 12 interviews with recent buyers.
 prototype: https://hris-lifecycle.vercel.app/#0
 prototype_label: Open the study
+prototype_end: The full study is still live, as the interactive presentation I shared with the team.
 hero: previews/hris-buying-lifecycle-study.webp
 hero_video: hris-journey.mp4
 hero_alt: The journey map from the study: stepping through the six buying stages along the buyer's anxiety curve, each with its job, emotion and a quote.

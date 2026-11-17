@@ -421,10 +421,10 @@ for i, p in enumerate(projects):
     prev_p, next_p = projects[i - 1], projects[(i + 1) % len(projects)]
     proto_top = proto_end = ''
     if p.get('prototype'):
-        label = p.get('prototype_label', 'Try the prototype')
+        label = p.get('prototype_label', 'Explore the prototype and process')
         btn = f'<a class="btn" href="{E(p["prototype"])}" target="_blank" rel="noopener">{E(label)} {ARROW_OUT}</a>'
         proto_top = f'<div class="cs-actions" data-reveal style="--i:2">{btn}</div>'
-        proto_end = f'''<section class="cs-end" data-reveal><p>See it for yourself. The prototype I built and tested is still live.</p>{btn}</section>'''
+        proto_end = f'''<section class="cs-end" data-reveal><p>{E(p.get('prototype_end', 'The prototype I built and tested is still live, along with the flows, states and edge cases behind it.'))}</p>{btn}</section>'''
     secs = ''.join(f'''
     <section class="cs-section" id="{t.lower()}">
       <h2 class="label">{E(t)}</h2>
