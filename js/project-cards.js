@@ -37,7 +37,11 @@ export function mountProjectCards(root = document) {
     const video = card.querySelector('.sheet video');
     let onScreen = false;
 
-    const load = () => { if (video && !video.src) { video.src = video.dataset.src; video.load(); } };
+    const load = () => { if (video && !video.src) { video.preload = 'auto'; video.src = video.dataset.src; video.load(); } };
+    // Fetch the clip before the hover, so it's already playing when the fade starts instead of
+    // sitting on the poster and then jumping.
+    if (video && !REDUCED) new IntersectionObserver(([e], io) => { if (e.isIntersecting) { io.disconnect(); load(); } },
+      { rootMargin: '200px' }).observe(card);
     const play = () => { if (!video || REDUCED) return; load(); video.play().catch(() => {}); };
     const show = () => { card.classList.add('show-ui'); play(); };
     const hide = () => { card.classList.remove('show-ui'); video?.pause(); };

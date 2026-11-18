@@ -139,7 +139,7 @@ p { margin: 0; text-wrap: pretty; }
 /* ---------- project cards: Work tiles + featured folders on Home ----------
  * .face holds the illustration, .sheet the real UI (video or still). .show-ui (js/project-cards.js)
  * swaps them with a crossfade. */
-:root { --pcard-dur: 480ms; }
+:root { --pcard-dur: 640ms; --ease-fade: cubic-bezier(.45, 0, .25, 1); }
 .pcard { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s2); text-decoration: none; color: inherit; align-content: start; }
 .pcard:hover { color: inherit; }
 .pcard .ill { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r-md); }
@@ -161,9 +161,10 @@ p { margin: 0; text-wrap: pretty; }
 .work-grid > .pcard:first-child { grid-column: 1 / -1; }
 .work-grid > .pcard:first-child .ill { aspect-ratio: 2.3 / 1; }
 .pcard--tile .ill { overflow: hidden; box-shadow: inset 0 0 0 1px var(--hairline); }
-.pcard--tile .sheet { inset: 0; opacity: 0; transition: opacity var(--pcard-dur) var(--ease-out); }
-.pcard--tile .face { transition: opacity var(--pcard-dur) var(--ease-out); }
-.pcard--tile.show-ui .sheet { opacity: 1; }
+/* Only the top layer (.face) fades; the sheet stays opaque underneath, so the crossfade never dips
+ * to the page color halfway through. Symmetric ease-in-out reads as a dissolve, not a snap. */
+.pcard--tile .sheet { inset: 0; }
+.pcard--tile .face { transition: opacity var(--pcard-dur) var(--ease-fade); will-change: opacity; }
 .pcard--tile.show-ui .face { opacity: 0; }
 
 /* ---------- folder cards (Home) ----------
