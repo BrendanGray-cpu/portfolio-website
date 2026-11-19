@@ -18,6 +18,15 @@ link: https://glass-therapy.vercel.app/
 what: A site whose surface shatters into glass and comes back together, about something broken being made whole.
 more: I saw a broken-looking site on X and wanted my own version, with glass that reads as real. Most of the time went into lighting and reflections.
 
+## Hand Drawn Shop
+tag: Crayon
+image: previews/hand-drawn-shop.webp
+clip: fun-handdrawn.mp4
+alt: A paper shop's landing page where every button, card and input is drawn in crayon.
+link: https://hand-drawn-shop.vercel.app/
+what: A landing page for a made-up paper shop, with every button, card and input drawn in crayon and scanned into a working site.
+more: I wanted to see if hand-drawn components could carry a whole page. Hover, press, focus and errors each swap in a real drawing, and the text stays typed so anyone can read it.
+
 ## Motorcycle Engines
 tag: Three.js
 image: previews/motorcycle-engines.webp
