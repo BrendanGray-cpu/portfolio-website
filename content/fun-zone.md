@@ -9,6 +9,15 @@ video: graphite-sizzle.mp4
 what: A 46-second promo for Graphite Connect’s workflow editor, built in code with Remotion.
 more: One timeline file sets every cut, caption and sound, so editing the video means changing numbers instead of dragging clips. Click it to turn the sound on.
 
+## Diagram Remix
+tag: Generative
+image: previews/diagram-remix.webp
+clip: fun-diagram-remix.mp4
+alt: Old technical diagrams fading into their remixes.
+link: https://diagram-remix.vercel.app/
+what: Old charts and diagrams from public archives, rebuilt in code and combined with new themes, surfaces and media.
+more: I love old diagrams. They’re so well designed that they make a rich starting point, and I try to respect the work that went into them while making something new.
+
 ## Glass Therapy
 tag: Three.js
 image: previews/glass-therapy.webp
