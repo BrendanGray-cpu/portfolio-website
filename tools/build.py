@@ -149,6 +149,7 @@ def page(title, desc, body, active='', scripts='', head_extra=''):
   {links}
   <span class="nav-dot" aria-hidden="true"></span>
 </nav>
+<script>(function(){{var n=document.querySelector('.nav'),d=n.querySelector('.nav-dot'),a=n.querySelector('a[aria-current]')||n.querySelector('a');d.style.transform='translate('+(a.offsetLeft+a.offsetWidth/2-(a.classList.contains('ext')?6:0))+'px,0px)'}})()</script>
 <main id="main">
 {body}
 </main>
